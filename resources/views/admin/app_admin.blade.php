@@ -103,51 +103,46 @@
                 </div>
             </nav>
         </header>
-		
+
         <aside class="left-sidebar">
             <div class="scroll-sidebar">
 				<nav class="sidebar-nav">
 					<ul id="sidebarnav">
 						<li class="nav-devider"></li>
 						<li class="nav-small-cap">Категории</li>
-						<?/*<li>
-							<a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+						<li>
+							<a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
 								<i class="mdi mdi-book-open-variant"></i>
-								<span class="hide-menu"><?=$menu->name?>
+								<span class="hide-menu">test
 									<span class="label label-rouded label-success pull-right">25</span>
 								</span>
 							</a>
 
 							<ul aria-expanded="false" class="collapse">
-								<li><a href="starter-kit.html">Starter Kit</a></li>
-								<li><a href="#" class="has-arrow">Authentication <span class="label label-rounded label-success">6</span></a>
+								<li><a href="javascript:void(0)">Starter Kit</a></li>
+								<li><a href="javascript:void(0)" class="has-arrow">Authentication <span class="label label-rounded label-success">6</span></a>
 									<ul aria-expanded="false" class="collapse">
-										<li><a href="pages-login.html">Login 1</a></li>
-										<li><a href="pages-login-2.html">Login 2</a></li>
-									</ul>
-								</li>
-								<li><a href="#" class="has-arrow">Error Pages</a>
-									<ul aria-expanded="false" class="collapse">
-										<li><a href="pages-error-400.html">400</a></li>
-										<li><a href="pages-error-403.html">403</a></li>
+										<li><a href="javascript:void(0)">Login 1</a></li>
+										<li><a href="javascript:void(0)">Login 2</a></li>
 									</ul>
 								</li>
 							</ul>
-						</li>*/?>
-						<?foreach($menu as $item){?>
+						</li>
+						@foreach($menu as $item)
 							<li>
-								<a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+								<a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
 									<i class="{{ $item->class }}"></i>
 									<span class="hide-menu">
-										<?=$item->name ?>
+									{{ $item->name }} | {{ $item->parent_id }}
 									</span>
 								</a>
 							</li>
-						<?}?>
+						@endforeach
 					</ul>
 				</nav>
             </div>
         </aside>
+
 
         <div class="page-wrapper">
 
