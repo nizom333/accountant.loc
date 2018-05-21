@@ -110,24 +110,21 @@
 					<ul id="sidebarnav">
 						<li class="nav-devider"></li>
 						<li class="nav-small-cap">Категории</li>
+                        <?foreach($menu as $item){?>
 						<li>
 							<a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
 								<i class="mdi mdi-book-open-variant"></i>
-								<span class="hide-menu">test
-									<span class="label label-rouded label-success pull-right">25</span>
-								</span>
+								<span class="hide-menu"><?=$item['NAME']?></span>
 							</a>
-
-							<ul aria-expanded="false" class="collapse">
-								<li><a href="javascript:void(0)">Starter Kit</a></li>
-								<li><a href="javascript:void(0)" class="has-arrow">Authentication <span class="label label-rounded label-success">6</span></a>
-									<ul aria-expanded="false" class="collapse">
-										<li><a href="javascript:void(0)">Login 1</a></li>
-										<li><a href="javascript:void(0)">Login 2</a></li>
-									</ul>
-								</li>
-							</ul>
+                            <?if(!empty($item['CHILD'])){?>
+                                <ul aria-expanded="false" class="collapse">
+                                    <?foreach($item['CHILD'] as $child){?>
+                                        <li><a href="javascript:void(0)"><?=$child['NAME']?></a></li>
+                                    <?}?>
+                                </ul>
+                            <?}?>
 						</li>
+                        <?}?>
 					</ul>
 				</nav>
             </div>
@@ -135,19 +132,12 @@
 
 
         <div class="page-wrapper">
-			@component('component.breadcrumbs')
-				@slot('name') Categories @endslot
-				@slot('parent') main @endslot
-				@slot('active') categories @endslot
-			@endcomponent
 
-            <div class="container-fluid">
-				
-				@yield('content')
 
-            </div>
+            @yield('content')
 
-            <footer class="footer"> © 2018 Домашная бухгалтерия </footer>
+
+            <footer class="footer"> © 2018 Домашняя бухгалтерия </footer>
 
         </div>
 

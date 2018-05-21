@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
@@ -15,10 +15,18 @@ class CategoryController extends Controller
      */
     public function index()
     {
-		//return view('admin')->with('menu', $cats);
-		return view('admin.categories.index', [
-			'categories' => Category::paginate(10)
-		]);
+        $cats = Category::all();
+        $menu = [];
+        foreach($cats as $cat){
+            if(isset($cat->parent_id)){
+                $menu[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
+                $menu[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
+            }else{
+                $menu[$cat->id]['NAME'] = $cat->title;
+                $menu[$cat->id]['ID'] = $cat->id;
+            }
+        }
+        return view('admin')->with('menu', $menu);
     }
 
     /**
@@ -28,11 +36,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create', [
-          'category'   => [],
-          'categories' => Category::with('children')->where('parent_id', '0')->get(),
-          'delimiter'  => ''
-        ]);
+        //
     }
 
     /**
@@ -43,8 +47,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Category::create($request->all());
-        return redirect()->route('admin.category.index');
+        //
     }
 
     /**
