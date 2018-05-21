@@ -16,7 +16,8 @@ class CategoryController extends Controller
     public function index()
     {
 		$cats = Category::all();
-        return view('admin')->with('menu', $cats);
+		return view('admin')->with('menu', $cats);
+		
     }
 
     /**

@@ -129,14 +129,17 @@
 							</ul>
 						</li>
 						@foreach($menu as $item)
+							@if($item->parent_id == 7)
 							<li>
 								<a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
 									<i class="{{ $item->class }}"></i>
 									<span class="hide-menu">
-									{{ $item->name }} | {{ $item->parent_id }}
+										{{ $item->name }} | {{ $item->parent_id }}
 									</span>
 								</a>
 							</li>
+							@endif
+
 						@endforeach
 					</ul>
 				</nav>
