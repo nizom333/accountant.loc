@@ -128,19 +128,6 @@
 								</li>
 							</ul>
 						</li>
-						@foreach($menu as $item)
-							@if($item->parent_id == 7)
-							<li>
-								<a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-									<i class="{{ $item->class }}"></i>
-									<span class="hide-menu">
-										{{ $item->name }} | {{ $item->parent_id }}
-									</span>
-								</a>
-							</li>
-							@endif
-
-						@endforeach
 					</ul>
 				</nav>
             </div>
@@ -148,21 +135,14 @@
 
 
         <div class="page-wrapper">
-
-            <div class="row page-titles">
-                <div class="col-md-5 align-self-center">
-                    <h3 class="text-themecolor">Dashboard</h3>
-                </div>
-                <div class="col-md-7 align-self-center">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
-                    </ol>
-                </div>
-            </div>
+			@component('component.breadcrumbs')
+				@slot('name') Categories @endslot
+				@slot('parent') main @endslot
+				@slot('active') categories @endslot
+			@endcomponent
 
             <div class="container-fluid">
-
+				
 				@yield('content')
 
             </div>
