@@ -110,20 +110,20 @@
 					<ul id="sidebarnav">
 						<li class="nav-devider"></li>
 						<li class="nav-small-cap">Категории</li>
-                        <?foreach($menu as $item){?>
-						<li>
-							<a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-								<i class="mdi mdi-book-open-variant"></i>
-								<span class="hide-menu"><?=$item['NAME']?></span>
-							</a>
-                            <?if(!empty($item['CHILD'])){?>
-                                <ul aria-expanded="false" class="collapse">
-                                    <?foreach($item['CHILD'] as $child){?>
-                                        <li><a href="javascript:void(0)"><?=$child['NAME']?></a></li>
-                                    <?}?>
-                                </ul>
-                            <?}?>
-						</li>
+                        <?foreach($menu['ITEM_ONE'] as $item){?>
+                            <li>
+                                <a class="has-arrow waves-effect waves-dark" href="/category/<?=$item['ID']?>" aria-expanded="false">
+                                    <i class="mdi mdi-book-open-variant"></i>
+                                    <span class="hide-menu"><?=$item['NAME']?></span>
+                                </a>
+                                <?if(!empty($item['CHILD'])){?>
+                                    <ul aria-expanded="false" class="collapse">
+                                        <?foreach($item['CHILD'] as $child){?>
+                                            <li><a href="/category/<?=$child['ID']?>"><?=$child['NAME']?></a></li>
+                                        <?}?>
+                                    </ul>
+                                <?}?>
+                            </li>
                         <?}?>
 					</ul>
 				</nav>

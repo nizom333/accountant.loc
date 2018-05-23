@@ -31,12 +31,12 @@
         <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">
             <div class="login-box card">
                 <div class="card-body">
-				
-				
+
+
 					<form class="form-horizontal form-material" id="loginform" method="POST" action="{{ route('register') }}">
 						{{ csrf_field() }}
 						<h3 class="box-title m-b-20">Зарегистрироваться</h3>
-						
+
 						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 							<div class="col-xs-12">
 								<input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Имя" required autofocus>
@@ -48,7 +48,7 @@
 								@endif
 							</div>
 						</div>
-						
+
 						<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 							<div class="col-xs-12">
 								<input id="email" type="email" class="form-control" name="email" placeholder="E mail" value="{{ old('email') }}" required>
@@ -87,8 +87,8 @@
 							</div>
 						</div>
 					</form>
-					
-					
+
+
                 </div>
             </div>
         </div>

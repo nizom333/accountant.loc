@@ -26,7 +26,7 @@ class CategoryController extends Controller
                 $menu[$cat->id]['ID'] = $cat->id;
             }
         }
-        return view('admin')->with('menu', $menu);
+        return view('dashboard')->with('menu', $menu);
     }
 
     /**
@@ -36,7 +36,18 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $cats = Category::all();
+        $item = [];
+        foreach($cats as $cat){
+            if(isset($cat->parent_id)){
+                $item[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
+                $item[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
+            }else{
+                $item[$cat->id]['NAME'] = $cat->title;
+                $item[$cat->id]['ID'] = $cat->id;
+            }
+        }
+        return view('category.create')->with('menu', $item);
     }
 
     /**
@@ -56,9 +67,24 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        $cats = Category::all();
+        $item = [];
+        foreach($cats as $cat){
+            if(isset($cat->parent_id)){
+                $item[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
+                $item[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
+            }else{
+                $item[$cat->id]['NAME'] = $cat->title;
+                $item[$cat->id]['ID'] = $cat->id;
+            }
+        }
+        $menu = array(
+            "ITEM_ONE" => $item,
+            "ITEM_TWO" => $id
+        );
+        return view('category.index')->with('menu', $menu);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+
 class HomeController extends Controller
 {
     /**
@@ -34,6 +35,6 @@ class HomeController extends Controller
                 $menu[$cat->id]['ID'] = $cat->id;
             }
         }
-        return view('admin')->with('menu', $menu);
+        return view('dashboard')->with('menu', $menu);
     }
 }
