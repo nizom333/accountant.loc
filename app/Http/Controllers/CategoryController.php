@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Elements;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,6 +25,7 @@ class CategoryController extends Controller
             }else{
                 $menu[$cat->id]['NAME'] = $cat->title;
                 $menu[$cat->id]['ID'] = $cat->id;
+                $menu[$cat->id]['CLASS'] = $cat->class;
             }
         }
         return view('dashboard')->with('menu', $menu);
@@ -36,18 +38,19 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $cats = Category::all();
-        $item = [];
-        foreach($cats as $cat){
-            if(isset($cat->parent_id)){
-                $item[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
-                $item[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
-            }else{
-                $item[$cat->id]['NAME'] = $cat->title;
-                $item[$cat->id]['ID'] = $cat->id;
-            }
-        }
-        return view('category.create')->with('menu', $item);
+        // $cats = Category::all();
+        // $item = [];
+        // foreach($cats as $cat){
+        //     if(isset($cat->parent_id)){
+        //         $item[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
+        //         $item[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
+        //     }else{
+        //         $item[$cat->id]['NAME'] = $cat->title;
+        //         $item[$cat->id]['ID'] = $cat->id;
+        //         $item[$cat->id]['CLASS'] = $cat->class;
+        //     }
+        // }
+        // return view('category.create')->with('menu', $item);
     }
 
     /**
@@ -78,11 +81,27 @@ class CategoryController extends Controller
             }else{
                 $item[$cat->id]['NAME'] = $cat->title;
                 $item[$cat->id]['ID'] = $cat->id;
+                $item[$cat->id]['CLASS'] = $cat->class;
+            }
+        }
+
+        $elements = Elements::all();
+        $element_list = [];
+        foreach($elements as $element){
+            if($element->CATEGORY_ID == $id){
+                $element_list[$element->ID]['ID'] = $element->ID;
+                $element_list[$element->ID]['CATEGORY_ID'] = $element->CATEGORY_ID;
+                $element_list[$element->ID]['USER_ID'] = $element->USER_ID;
+                $element_list[$element->ID]['DATE'] = $element->DATE;
+                $element_list[$element->ID]['EXPENSE'] = $element->EXPENSE;
+                $element_list[$element->ID]['PRICE'] = $element->PRICE;
+                $element_list[$element->ID]['COMMENTS'] = $element->COMMENTS;
             }
         }
         $menu = array(
             "ITEM_ONE" => $item,
-            "ITEM_TWO" => $id
+            "ITEM_TWO" => $id,
+            "ELEMENTS" => $element_list
         );
         return view('category.index')->with('menu', $menu);
     }
@@ -116,8 +135,10 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        // Category::findOrFail($id)->delete();
+
+        // return redirect('/category')->with('status', 'Category Deleted');
     }
 }

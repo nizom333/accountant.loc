@@ -113,7 +113,7 @@
                         <?foreach($menu as $item){?>
                             <li>
                                 <a class="has-arrow waves-effect waves-dark" href="/category/<?=$item['ID']?>" aria-expanded="false">
-                                    <i class="mdi mdi-book-open-variant"></i>
+                                    <i class="<?=$item['CLASS']?>"></i>
                                     <span class="hide-menu"><?=$item['NAME']?></span>
                                 </a>
                                 <?if(!empty($item['CHILD'])){?>

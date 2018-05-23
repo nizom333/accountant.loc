@@ -14,7 +14,7 @@ class ElementsController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -24,7 +24,7 @@ class ElementsController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -44,9 +44,9 @@ class ElementsController extends Controller
      * @param  \App\Elements  $elements
      * @return \Illuminate\Http\Response
      */
-    public function show(Elements $elements)
+    public function show($id)
     {
-        //
+
     }
 
     /**

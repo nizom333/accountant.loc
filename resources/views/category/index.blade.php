@@ -12,13 +12,14 @@
 
 <div class="container-fluid">
     <pre>
-    <?print_r($menu['ITEM_TWO'])?>
+        <?print_r($menu['ITEM_TWO'])?>
     </pre>
+
     <div class="card card-default">
         <div class="card-header">
             <div class="card-actions">
                 <a style="float: left!important; font-size: 25px!important;" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
-                <h2 style="float: right!important;" class="add-ct-btn"><a href="{{ route('category.create') }}"><button type="button" class="btn waves-effect waves-light btn-rounded btn-success">+ Добавить</button></a></h2>
+                <h2 style="float: right!important;" class="add-ct-btn"><a href=""><button type="button" class="btn waves-effect waves-light btn-rounded btn-success">+ Добавить</button></a></h2>
             </div>
             <h4 class="card-title m-b-0">Product Overview</h4>
         </div>
@@ -36,13 +37,13 @@
                         </tr>
                     </thead>
                     <tbody>
-
+                    <?foreach($menu['ELEMENTS'] as $ele){?>
                         <tr>
-                            <td>10-7-2017</td>
-                            <td>Приход</td>
+                            <td><?=$ele['DATE']?></td>
+                            <td><?=$ele['EXPENSE']?></td>
                             <td>Заработная плата</td>
-                            <td>1200</td>
-                            <td>Комментарий</td>
+                            <td><?=$ele['PRICE']?></td>
+                            <td><?=$ele['COMMENTS']?></td>
                             <td>
                             <a  href="javascript:void(0)"
                                 class="text-inverse p-r-10"
@@ -64,7 +65,7 @@
                             </a>
                             </td>
                         </tr>
-
+                    <?}?>
                     </tbody>
                 </table>
             </div>
