@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Elements;
+use App\Items;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -85,7 +85,7 @@ class CategoryController extends Controller
             }
         }
 
-        $elements = Elements::all();
+        $elements = Items::where('CATEGORY_ID', $id)->get();
         $element_list = [];
         foreach($elements as $element){
             if($element->CATEGORY_ID == $id){

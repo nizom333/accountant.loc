@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateElementsTable extends Migration
+class CreateItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateElementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('elements', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->increments('ID');
             $table->integer('CATEGORY_ID')->nullable();
             $table->integer('USER_ID')->nullable();
-            $table->string('DATE')->nullable();
-            $table->string('EXPENSE')->nullable();
+            $table->date('DATE')->nullable();
             $table->string('PRICE')->nullable();
             $table->string('COMMENTS')->nullable();
         });
@@ -31,6 +30,6 @@ class CreateElementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('elements');
+        Schema::dropIfExists('items');
     }
 }

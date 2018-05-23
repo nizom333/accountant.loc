@@ -11,17 +11,13 @@
 
 
 <div class="container-fluid">
-    <pre>
-        <?print_r($menu['ITEM_TWO'])?>
-    </pre>
-
     <div class="card card-default">
         <div class="card-header">
             <div class="card-actions">
                 <a style="float: left!important; font-size: 25px!important;" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
-                <h2 style="float: right!important;" class="add-ct-btn"><a href=""><button type="button" class="btn waves-effect waves-light btn-rounded btn-success">+ Добавить</button></a></h2>
+                <h2 style="float: right!important;" class="add-ct-btn"><a href="/items/create?category_id=<?=$menu['ITEM_TWO']?>"><button type="button" class="btn waves-effect waves-light btn-rounded btn-success">+ Добавить</button></a></h2>
             </div>
-            <h4 class="card-title m-b-0">Product Overview</h4>
+            <h4 class="card-title m-b-0">Список данных</h4>
         </div>
 
         <div class="card-body collapse show">

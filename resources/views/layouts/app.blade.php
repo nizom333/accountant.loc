@@ -29,7 +29,7 @@
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ url('/category') }}">
 						<b>
                             <img src="{{ asset('/assets/images/logo-icon.png') }}" alt="homepage" class="dark-logo" />
                         </b>

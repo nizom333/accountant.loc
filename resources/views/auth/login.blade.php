@@ -31,18 +31,18 @@
         <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">
             <div class="login-box card">
                 <div class="card-body">
-				
-				
+
+
                     <form class="form-horizontal form-material" id="loginform" method="POST" action="{{ route('login') }}">
-					
+
 						{{ csrf_field() }}
-					
-					
-					
+
+
+
                         <h3 class="box-title m-b-20">Войти в систему</h3>
 							<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 								<div class="col-xs-12">
-									
+
 									<input id="email" type="email" placeholder="Логин" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
 
 									@if ($errors->has('email'))
@@ -50,12 +50,12 @@
 											<strong>{{ $errors->first('email') }}</strong>
 										</span>
 									@endif
-									
-									
+
+
 								</div>
 							</div>
-							
-							
+
+
 							<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 								<div class="col-xs-12">
 
@@ -65,11 +65,11 @@
 										<span class="help-block">
 											<strong>{{ $errors->first('password') }}</strong>
 										</span>
-									@endif									
+									@endif
 								</div>
 							</div>
-							
-							
+
+
                         <div class="form-group row">
                             <div class="col-md-12 font-14">
                                 <div class="checkbox checkbox-primary pull-left p-t-0">
@@ -77,26 +77,26 @@
 									<label for="checkbox-signup">
                                         <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Запомни меня
                                     </label>
-									
+
                                 </div> <a href="{{ route('password.request') }}" id="to-recover" class="text-dark pull-right">
 								<i class="fa fa-lock m-r-5"></i> Забыли пароль?</a> </div>
                         </div>
-						
+
                         <div class="form-group text-center m-t-20">
                             <div class="col-xs-12">
                                 <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Авторизоваться</button>
                             </div>
                         </div>
-						
-						
+
+
                         <div class="form-group m-b-0">
                             <div class="col-sm-12 text-center">
                                 <div>У вас нет учетной записи? <a href="{{ route('register') }}" class="text-info m-l-5"><b>Зарегистрироваться</b></a></div>
                             </div>
                         </div>
                     </form>
-					
-					
+
+
                 </div>
             </div>
         </div>
