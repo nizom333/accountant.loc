@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/assets/images/favicon.png') }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Домашняя бухгалтерия') }}</title>
     <link href="{{ asset('/assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/assets/plugins/morrisjs/morris.css') }}" rel="stylesheet">
     <link href="{{ asset('/assets/css/style.css') }}" rel="stylesheet">
@@ -29,13 +29,14 @@
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="{{ url('/category') }}">
+                    <a class="navbar-brand" href="{{ url('/') }}">
 						<b>
                             <img src="{{ asset('/assets/images/logo-icon.png') }}" alt="homepage" class="dark-logo" />
                         </b>
 
-						<span>
-							{{ config('app.name', 'Laravel') }}
+						<span style="text-transform: capitalize;font-size: 20px;font-weight: 700;">
+                        {{-- Auth::user()->name --}}
+                        {{ config('app.name', 'Laravel') }}
 							<!-- <img src="{{ asset('/assets/images/logo-text.png') }}" alt="homepage" class="dark-logo" /> -->
 						</span>
 					 </a>
@@ -110,7 +111,7 @@
 					<ul id="sidebarnav">
 						<li class="nav-devider"></li>
 						<li class="nav-small-cap">Категории</li>
-                        <?foreach($menu as $item){?>
+                        <?foreach($menu['MENU'] as $item){?>
                             <li>
                                 <a class="has-arrow waves-effect waves-dark" href="/category/<?=$item['ID']?>" aria-expanded="false">
                                     <i class="<?=$item['CLASS']?>"></i>
@@ -156,6 +157,8 @@
     <script src="{{ asset('/assets/plugins/morrisjs/morris.min.js') }}"></script>
     <script src="{{ asset('/assets/js/dashboard1.js') }}"></script>
     <script src="{{ asset('/assets/plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
+    <script src="{{ asset('/assets/plugins/sweetalert/sweetalert.min.js') }}"></script>
+    <!-- <script src="{{ asset('/assets/plugins/sweetalert/jquery.sweet-alert.custom.js') }}"></script> -->
 </body>
 
 </html>

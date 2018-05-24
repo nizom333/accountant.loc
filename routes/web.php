@@ -17,6 +17,4 @@ Route::resource('/items', 'ItemsController');
 
 Route::get('/', 'CategoryController@index');
 
-
-
 Auth::routes();

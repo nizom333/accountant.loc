@@ -11,6 +11,7 @@ class Items extends Model
     protected $fillable = [
         'DATE',
         'USER_ID',
+        'CATEGORY_ID',
         'PRICE',
         'COMMENTS',
     ];

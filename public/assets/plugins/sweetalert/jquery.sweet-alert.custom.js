@@ -40,20 +40,20 @@
     //Parameter
     $('#sa-params').click(function(){
         swal({   
-            title: "Are you sure?",   
-            text: "You will not be able to recover this imaginary file!",   
+            title: "Вы уверен?",   
+            text: "Вы не сможете восстановить этот мнимый запись!",   
             type: "warning",   
             showCancelButton: true,   
             confirmButtonColor: "#DD6B55",   
-            confirmButtonText: "Yes, delete it!",   
-            cancelButtonText: "No, cancel plx!",   
+            confirmButtonText: "Удалить",   
+            cancelButtonText: "Отмена",   
             closeOnConfirm: false,   
             closeOnCancel: false 
         }, function(isConfirm){   
             if (isConfirm) {     
-                swal("Deleted!", "Your imaginary file has been deleted.", "success");   
+                swal("Удаленно!", "ваш запись успешно удаленно.", "success");   
             } else {     
-                swal("Cancelled", "Your imaginary file is safe :)", "error");   
+                swal("Отменена", "Ваш мнимый запись безопасен.", "error");   
             } 
         });
     });

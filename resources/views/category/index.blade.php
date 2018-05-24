@@ -1,12 +1,55 @@
-@extends('category.app')
+@extends('layouts.app')
 
 @section('content')
 
 @component('component.breadcrumbs')
-    @slot('title') Главная @endslot
-    @slot('main')  @endslot
-    @slot('active')  @endslot
+    @slot('title') Список данных @endslot
+    @slot('main') Главная @endslot
+    @slot('active') Список данных @endslot
 @endcomponent
+
+<script>
+
+!function($) {
+    "use strict";
+
+    var SweetAlert = function() {};
+
+    //examples
+    SweetAlert.prototype.init = function() {
+
+    //Parameter
+    $('#sa-params').click(function(){
+        swal({
+            title: "Вы уверен?",
+            text: "Вы не сможете восстановить этот мнимый запись!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Удалить",
+            cancelButtonText: "Отмена",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }, function(isConfirm){
+            if (isConfirm) {
+                swal("Удаленно!", "ваш запись успешно удаленно.", "success");
+            } else {
+                swal("Отменена", "Ваш мнимый запись безопасен.", "error");
+            }
+        });
+    });
+
+    },
+    //init
+    $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert
+}(window.jQuery),
+
+//initializing
+function($) {
+    "use strict";
+    $.SweetAlert.init()
+}(window.jQuery);
+</script>
 
 
 
@@ -15,7 +58,11 @@
         <div class="card-header">
             <div class="card-actions">
                 <a style="float: left!important; font-size: 25px!important;" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
-                <h2 style="float: right!important;" class="add-ct-btn"><a href="/items/create?category_id=<?=$menu['ITEM_TWO']?>"><button type="button" class="btn waves-effect waves-light btn-rounded btn-success">+ Добавить</button></a></h2>
+                <h2 style="float: right!important;" class="add-ct-btn">
+                    <a href="/items/create?category_id=<?=$menu['LINK_ID']?>">
+                    <button type="button" class="btn waves-effect waves-light btn-rounded btn-success">+ Добавить</button>
+                    </a>
+                </h2>
             </div>
             <h4 class="card-title m-b-0">Список данных</h4>
         </div>
@@ -37,37 +84,29 @@
                         <tr>
                             <td><?=$ele['DATE']?></td>
                             <td><?=$ele['EXPENSE']?></td>
-                            <td>Заработная плата</td>
+                            <td><?=$ele['CATEGORY_ID']?></td>
                             <td><?=$ele['PRICE']?></td>
                             <td><?=$ele['COMMENTS']?></td>
                             <td>
-                            <a  href="javascript:void(0)"
-                                class="text-inverse p-r-10"
-                                data-toggle="tooltip"
-                                title=""
-                                data-original-title="Edit">
 
-                                    <i class="ti-marker-alt"></i>
-
-                            </a>
-                            <form onsubmit="if(confirm('Удалить?')){ return true }else{ return false }" action="{{route('items.destroy', $ele['ID'])}}" method="post">
-                                <input type="hidden" name="_method" value="DELETE">
+                            <form action="{{ route('items.destroy', $ele['ID']) }}" method="post">
+                                <!-- <input type="hidden" name="_method" value="DELETE"> -->
+                                {{ method_field('DELETE') }}
                                 {{ csrf_field() }}
+                                <a  href="{{ route('items.edit', $ele['ID']) }}"
+                                    class="text-inverse p-r-10"
+                                    data-toggle="tooltip"
+                                    title=""
+                                    data-original-title="Изменить">
 
-                                <a class="btn btn-default" href="{{route('items.edit', $ele['ID'])}}"><i class="fa fa-edit"></i></a>
+                                        <i class="ti-marker-alt"></i>
 
-                                <button type="submit" class="btn"><i class="fa fa-trash-o"></i></button>
+                                </a>
+                                <button data-original-title="Удалить" data-toggle="tooltip" id="sa-params" type="submit" style="cursor: pointer;background: none;border: none;">
+                                    <i class="ti-trash"></i>
+                                </button>
                             </form>
 
-                            <a  href=""
-                                class="text-inverse"
-                                title=""
-                                data-toggle="tooltip"
-                                data-original-title="Delete">
-
-                                    <i class="ti-trash"></i>
-
-                            </a>
                             </td>
                         </tr>
                     <?}?>
@@ -79,4 +118,6 @@
     </div>
 
 </div>
+
+
 @endsection

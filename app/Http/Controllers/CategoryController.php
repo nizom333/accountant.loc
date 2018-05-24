@@ -17,17 +17,19 @@ class CategoryController extends Controller
     public function index()
     {
         $cats = Category::all();
-        $menu = [];
+        $items = [];
         foreach($cats as $cat){
             if(isset($cat->parent_id)){
-                $menu[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
-                $menu[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
+                $items[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
+                $items[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
             }else{
-                $menu[$cat->id]['NAME'] = $cat->title;
-                $menu[$cat->id]['ID'] = $cat->id;
-                $menu[$cat->id]['CLASS'] = $cat->class;
+                $items[$cat->id]['NAME'] = $cat->title;
+                $items[$cat->id]['ID'] = $cat->id;
+                $items[$cat->id]['CLASS'] = $cat->class;
             }
         }
+        $menu = ['MENU'=>$items];
+
         return view('dashboard')->with('menu', $menu);
     }
 
@@ -87,8 +89,8 @@ class CategoryController extends Controller
             }
         }
         $menu = array(
-            "ITEM_ONE" => $item,
-            "ITEM_TWO" => $id,
+            "MENU" => $item,
+            "LINK_ID" => $id,
             "ELEMENTS" => $element_list
         );
         return view('category.index')->with('menu', $menu);

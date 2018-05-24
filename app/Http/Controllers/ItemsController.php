@@ -7,6 +7,7 @@ use App\Items;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Redirect;
 
 class ItemsController extends Controller
 {
@@ -39,7 +40,8 @@ class ItemsController extends Controller
                 $item[$cat->id]['CLASS'] = $cat->class;
             }
         }
-        return view('items.create')->with('menu', $item);
+        $menu = ['MENU'=>$item];
+        return view('items.create')->with('menu', $menu);
 
     }
 
@@ -59,9 +61,10 @@ class ItemsController extends Controller
             'DATE' => $request['DATE'],
             'USER_ID'=> $task['USER_ID'],
             'PRICE' => $request['PRICE'],
+            'CATEGORY_ID' => $request['CATEGORY_ID'],
             'COMMENTS' => $request['COMMENTS'],
         ]);
-        return redirect('/category');
+        return Redirect::back();
 
     }
 
@@ -82,9 +85,26 @@ class ItemsController extends Controller
      * @param  \App\Items  $items
      * @return \Illuminate\Http\Response
      */
-    public function edit(Items $items)
+    public function edit($id)
     {
-        //
+        $cats = Category::all();
+        $item = [];
+        foreach($cats as $cat){
+            if(isset($cat->parent_id)){
+                $item[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
+                $item[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
+            }else{
+                $item[$cat->id]['NAME'] = $cat->title;
+                $item[$cat->id]['ID'] = $cat->id;
+                $item[$cat->id]['CLASS'] = $cat->class;
+            }
+        }
+        $edit_id = Items::where('ID', $id);
+        $menu = array(
+            "MENU" => $item,
+            "ID" => $edit_id
+        );
+        return view('items.edit')->with('menu', $menu);
     }
 
     /**
@@ -94,9 +114,22 @@ class ItemsController extends Controller
      * @param  \App\Items  $items
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Items $items)
+    public function update(Request $request, $id)
     {
-        //
+        $task = Items::where('ID', $id);
+        $task->DATE = $request->input('DATE');
+        $task->USER_ID = $request->input('USER_ID');
+        $task->PRICE = $request->input('PRICE');
+        $task->COMMENTS = $request->input('COMMENTS');
+
+        if ($task->completed == '1') {
+            $return_msg = 'Task Completed !!!';
+        } else {
+            $task->completed = 0;
+            $return_msg = 'Task Updated';
+        }
+
+        $task->save();
     }
 
     /**
@@ -107,10 +140,9 @@ class ItemsController extends Controller
      */
     public function destroy($id)
     {
-        $item = Items::findOrFail($id);
-        $a=$item->delete();
-        dump($a);
-        //return redirect('/category');
+        $item = Items::where('ID', $id);
+        $item->delete();
+        return Redirect::back();
     }
 
 }
