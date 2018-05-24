@@ -38,19 +38,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        // $cats = Category::all();
-        // $item = [];
-        // foreach($cats as $cat){
-        //     if(isset($cat->parent_id)){
-        //         $item[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
-        //         $item[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
-        //     }else{
-        //         $item[$cat->id]['NAME'] = $cat->title;
-        //         $item[$cat->id]['ID'] = $cat->id;
-        //         $item[$cat->id]['CLASS'] = $cat->class;
-        //     }
-        // }
-        // return view('category.create')->with('menu', $item);
+
     }
 
     /**

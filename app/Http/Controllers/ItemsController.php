@@ -51,19 +51,18 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-       // dump($request);
-        // echo '<pre>';
-        // print_r();
-        // echo '</pre>';
-        //$this->validate($request, $this->rules);
 
-       // $user = Auth::user();
+        $user = Auth::user();
         $task = $request->all();
-        //$task['USER_ID'] = $user->id;
+        $task['USER_ID'] = $user->id;
+        Items::create([
+            'DATE' => $request['DATE'],
+            'USER_ID'=> $task['USER_ID'],
+            'PRICE' => $request['PRICE'],
+            'COMMENTS' => $request['COMMENTS'],
+        ]);
+        return redirect('/category');
 
-        Items::create($task);
-
-        return redirect('/category')->with('status', 'Task created');
     }
 
     /**
@@ -108,8 +107,10 @@ class ItemsController extends Controller
      */
     public function destroy($id)
     {
-        Items::findOrFail($id)->delete();
-
-        return redirect('/category');
+        $item = Items::findOrFail($id);
+        $a=$item->delete();
+        dump($a);
+        //return redirect('/category');
     }
+
 }

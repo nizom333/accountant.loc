@@ -50,7 +50,16 @@
                                     <i class="ti-marker-alt"></i>
 
                             </a>
-                            <a  href="javascript:void(0)"
+                            <form onsubmit="if(confirm('Удалить?')){ return true }else{ return false }" action="{{route('items.destroy', $ele['ID'])}}" method="post">
+                                <input type="hidden" name="_method" value="DELETE">
+                                {{ csrf_field() }}
+
+                                <a class="btn btn-default" href="{{route('items.edit', $ele['ID'])}}"><i class="fa fa-edit"></i></a>
+
+                                <button type="submit" class="btn"><i class="fa fa-trash-o"></i></button>
+                            </form>
+
+                            <a  href=""
                                 class="text-inverse"
                                 title=""
                                 data-toggle="tooltip"

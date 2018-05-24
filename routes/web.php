@@ -15,9 +15,7 @@
 Route::resource('/category', 'CategoryController');
 Route::resource('/items', 'ItemsController');
 
-Route::get('/', function(){
-    return view('welcome');
-});
+Route::get('/', 'CategoryController@index');
 
 
 

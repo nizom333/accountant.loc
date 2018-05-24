@@ -20,7 +20,7 @@
                     <div class="col-12">
                         <h2 class="m-b-0"><i class="mdi mdi-wallet text-purple"></i></h2>
                         <h3 class="">$24561</h3>
-                        <h6 class="card-subtitle">Total Cost</h6></div>
+                        <h6 class="card-subtitle">Доходы</h6></div>
                     <div class="col-12">
                         <div class="progress">
                             <div class="progress-bar bg-primary" role="progressbar" style="width: 56%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -36,7 +36,7 @@
                     <div class="col-12">
                         <h2 class="m-b-0"><i class="mdi mdi-buffer text-warning"></i></h2>
                         <h3 class="">$30010</h3>
-                        <h6 class="card-subtitle">Total Earnings</h6>
+                        <h6 class="card-subtitle">Затраты</h6>
                     </div>
                     <div class="col-12">
                         <div class="progress">
@@ -87,6 +87,36 @@
             </div>
         </div>
     </div>
+
+
+
+
+            <div class="card">
+
+                <div class="table-responsive">
+                    <table id="demo-foo-addrow" class="table m-t-30 table-hover no-wrap contact-list" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Opened By</th>
+                                <th>Sbuject</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="javascript:void(0)"> Genelia Deshmukh</a>
+                                </td>
+                                <td>genelia@gmail.com</td>
+                                <td>Johnathon</td>
+                                <td>14-10-2017</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
 </div>
 
 @endsection

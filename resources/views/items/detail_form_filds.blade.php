@@ -8,10 +8,10 @@
 	<label>Категория</label>
 	<select class="form-control">
     <?/*foreach($menu as $item){?>
-	    <option><?=$item['NAME']?></option>
+	    <option value="<?=$item['ID']?>"><?=$item['NAME']?></option>
         <?if(!empty($item['CHILD'])){?>
             <?foreach($item['CHILD'] as $child){?>
-                <option><?=$child['NAME']?></option>
+                <option value="<?=$child['ID']?>" name="CATEGORY_ID"><?=$child['NAME']?></option>
             <?}?>
         <?}?>
     <?}*/?>
@@ -19,7 +19,7 @@
 </div>
 
 <div class="form-group">
-	<input type="text" name="PRICE" class="form-control" placeholder="Сумма">
+	<input type="number" name="PRICE" class="form-control" placeholder="Сумма">
 </div>
 
 <div class="form-group">
