@@ -82,15 +82,13 @@ class CategoryController extends Controller
     {
         $user = Auth::user();
         $task = $request->all();
-        $task['user_id'] = $user->id;
         Category::create([
             'id' => $request['id'],
             'title'=> $request['title'],
             'parent_id' => $request['parent_id'],
             'class' => $request['class'],
-            'user_id' => $task['user_id'],
         ]);
-        return Redirect::back();
+        return redirect('settings');
     }
 
     /**
@@ -175,9 +173,10 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request,  $id)
     {
-        //
+        Category::where('id', $id)->update($request->all());
+        return Redirect::back();
     }
 
     /**

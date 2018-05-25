@@ -37,10 +37,12 @@ class HomeController extends Controller
                 $items[$cat->id]['CLASS'] = $cat->class;
             }
         }
+        $elements = Items::all();
         $menu = array(
             'MENU'=>$items,
             'ELEMENTS'=>$cats,
+            'ITEMS' => $elements
         );
-        return view('category.sections')->with('menu', $menu);
+        return view('category.index')->with('menu', $menu);
     }
 }

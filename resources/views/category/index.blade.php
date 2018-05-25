@@ -64,7 +64,7 @@ function($) {
                     </a>
                 </h2>
             </div>
-            <h4 class="card-title m-b-0">Список данных</h4>
+            <h4 class="card-title m-b-0">Список категории</h4>
         </div>
 
         <div class="card-body collapse show">

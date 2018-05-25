@@ -111,9 +111,15 @@
 					<ul id="sidebarnav">
 						<li class="nav-devider"></li>
 						<li class="nav-small-cap">Категории</li>
+                        <li>
+                            <a style="background:#fff;" class="has-arrow waves-effect waves-dark" href="{{ url('/') }}">
+                                <i class="mdi mdi-home"></i>
+                                <span class="hide-menu">Главная</span>
+                            </a>
+                        </li>
                         <?foreach($menu['MENU'] as $item){?>
                             <li>
-                                <a class="has-arrow waves-effect waves-dark" href="/category/<?=$item['ID']?>" aria-expanded="false">
+                                <a style="background:#fff;" class="has-arrow waves-effect waves-dark" href="/category/<?=$item['ID']?>" aria-expanded="false">
                                     <i class="<?=$item['CLASS']?>"></i>
                                     <span class="hide-menu"><?=$item['NAME']?></span>
                                 </a>
@@ -126,10 +132,11 @@
                                 <?}?>
                             </li>
                         <?}?>
+						<li class="nav-devider"></li>
                         <li>
                             <a style="background:#fff;" class="has-arrow waves-effect waves-dark" href="/settings">
                                 <i class="mdi mdi-settings"></i>
-                                <span class="hide-menu">Настройки Категории</span>
+                                <span class="hide-menu">Настройки</span>
                             </a>
                         </li>
 					</ul>

@@ -9,7 +9,7 @@
     @slot('active') Редактирование категории @endslot
 @endcomponent
 
-<?//dd($menu['ITEM']);?>
+<?dump($menu['ITEM']);?>
 
 <div class="container-fluid">
 
@@ -20,12 +20,12 @@
                     <h4 class="m-b-0 text-white">Редактирование категории</h4>
                 </div>
                 <div class="card-body">
-                    <form class="form-material m-t-40 row" action="/settings/update/<?=$menu['ITEM']->ID?>" method="PATCH">
+                    <form class="form-material m-t-40 row" action="/category/update<?=$menu['ITEM']->id?>" method="PATCH">
                         {{ csrf_field() }}
                         <input type="hidden" name="_method" value="put">
 
                         <div class="form-group col-md-4 m-t-20">
-                            <input type="text" style="line-height: 55px; overflow-y: hidden;" name="title" class="form-control form-control-line" placeholder="Название">
+                            <input type="text" value="<?=$menu['ITEM']->title?>" style="line-height: 55px; overflow-y: hidden;" name="title" class="form-control form-control-line" placeholder="Название">
                         </div>
 
 
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="form-group col-md-4 m-t-20">
-                            <input type="text" value="<?=$menu['ITEM']->PRICE?>" style="line-height: 55px; overflow-y: hidden;" name="class" class="form-control form-control-line" placeholder="Класс иконки">
+                            <input type="text" value="<?=$menu['ITEM']->class?>" style="line-height: 55px; overflow-y: hidden;" name="class" class="form-control form-control-line" placeholder="Класс иконки">
                         </div>
 
                         <div class="form-actions">

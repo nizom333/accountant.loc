@@ -117,12 +117,12 @@ class ItemsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $task = Items::findOrFail($id);
-        $task->DATE = $request->input('DATE');
-        $task->CATEGORY_ID = $request->input('CATEGORY_ID');
-        $task->PRICE = $request->input('PRICE');
-        $task->COMMENTS = $request->input('COMMENTS');
-        dd($task);
+        // $task = Items::findOrFail($id);
+        // $task->DATE = $request->input('DATE');
+        // $task->CATEGORY_ID = $request->input('CATEGORY_ID');
+        // $task->PRICE = $request->input('PRICE');
+        // $task->COMMENTS = $request->input('COMMENTS');
+        // dd($task);
         // if ($task->completed == '1') {
         //     $return_msg = 'Task Completed !!!';
         // } else {
@@ -130,11 +130,11 @@ class ItemsController extends Controller
         //     $return_msg = 'Task Updated';
         // }
 
-        $task->save();
+        // $task->save();
 
         // $i = Items::find($id)->update($request->all());
-
-        // return Redirect::back();
+        Items::where('ID', $id)->update($request->all());
+        return Redirect::back();
     }
 
     /**

@@ -27,6 +27,7 @@
                     <div class="form-group col-md-4 m-t-20">
                         <label>Категория</label>
                         <select name="parent_id" class="form-control">
+                            <option value="">Без категории</option>
                         <?foreach($menu['MENU'] as $item){?>
                             <option value="<?=$item['ID']?>"><?=$item['NAME']?></option>
                         <?}?>

@@ -15,6 +15,5 @@ class Category extends Model
         'title',
         'parent_id',
         'class',
-        'user_id'
       ];
 }
