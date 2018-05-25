@@ -78,8 +78,9 @@
                                         <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Запомни меня
                                     </label>
 
-                                </div> <a href="{{ route('password.request') }}" id="to-recover" class="text-dark pull-right">
-								<i class="fa fa-lock m-r-5"></i> Забыли пароль?</a> </div>
+                                </div>
+
+                        </div>
                         </div>
 
                         <div class="form-group text-center m-t-20">

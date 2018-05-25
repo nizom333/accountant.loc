@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Items;
+use Redirect;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,7 +30,21 @@ class CategoryController extends Controller
                 $items[$cat->id]['CLASS'] = $cat->class;
             }
         }
-        $menu = ['MENU'=>$items];
+
+        $items_el = Items::all();
+        $list = [];
+        foreach($items_el as $i){
+            $list[$i->ID]['ID'] = $i->ID;
+            $list[$i->ID]['CATEGORY_ID'] = $i->CATEGORY_ID;
+            $list[$i->ID]['USER_ID'] = $i->USER_ID;
+            $list[$i->ID]['DATE'] = $i->DATE;
+            $list[$i->ID]['PRICE'] = $i->PRICE;
+            $list[$i->ID]['COMMENTS'] = $i->COMMENTS;
+        }
+        $menu = array(
+            'MENU'=>$items,
+            "LIST"=>$list
+        );
 
         return view('dashboard')->with('menu', $menu);
     }
@@ -40,7 +56,20 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
+        $cats = Category::all();
+        $item = [];
+        foreach($cats as $cat){
+            if(isset($cat->parent_id)){
+                $item[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
+                $item[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
+            }else{
+                $item[$cat->id]['NAME'] = $cat->title;
+                $item[$cat->id]['ID'] = $cat->id;
+                $item[$cat->id]['CLASS'] = $cat->class;
+            }
+        }
+        $menu = ['MENU'=>$item];
+        return view('category.create')->with('menu', $menu);
     }
 
     /**
@@ -51,7 +80,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $task = $request->all();
+        $task['user_id'] = $user->id;
+        Category::create([
+            'id' => $request['id'],
+            'title'=> $request['title'],
+            'parent_id' => $request['parent_id'],
+            'class' => $request['class'],
+            'user_id' => $task['user_id'],
+        ]);
+        return Redirect::back();
     }
 
     /**
@@ -65,6 +104,8 @@ class CategoryController extends Controller
         $cats = Category::all();
         $item = [];
         foreach($cats as $cat){
+            if($id == $cat->id)
+                $current = $cat->title;
             if(isset($cat->parent_id)){
                 $item[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
                 $item[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
@@ -91,10 +132,13 @@ class CategoryController extends Controller
         $menu = array(
             "MENU" => $item,
             "LINK_ID" => $id,
+            "CURRENT" =>$current,
             "ELEMENTS" => $element_list
         );
-        return view('category.index')->with('menu', $menu);
+        return view('items.index')->with('menu', $menu);
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -102,9 +146,26 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $cats = Category::all();
+        $item = [];
+        foreach($cats as $cat){
+            if(isset($cat->parent_id)){
+                $item[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
+                $item[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
+            }else{
+                $item[$cat->id]['NAME'] = $cat->title;
+                $item[$cat->id]['ID'] = $cat->id;
+                $item[$cat->id]['CLASS'] = $cat->class;
+            }
+        }
+        $edit_item = Category::find($id);
+        $menu = array(
+            "MENU" => $item,
+            "ITEM" => $edit_item
+        );
+        return view('category.edit')->with('menu', $menu);
     }
 
     /**
@@ -127,8 +188,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        // Category::findOrFail($id)->delete();
-
-        // return redirect('/category')->with('status', 'Category Deleted');
+        $category = Category::where('id', $id);
+        $category->delete();
+        return Redirect::back();
     }
 }

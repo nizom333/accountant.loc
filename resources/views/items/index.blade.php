@@ -1,96 +1,123 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('content')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+@component('component.breadcrumbs')
+    @slot('title') Список данных @endslot
+    @slot('main') Главная @endslot
+    @slot('active') Список данных @endslot
+@endcomponent
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
+<script>
+
+!function($) {
+    "use strict";
+
+    var SweetAlert = function() {};
+
+    //examples
+    SweetAlert.prototype.init = function() {
+
+    //Parameter
+    $('#sa-params').click(function(){
+        swal({
+            title: "Вы уверен?",
+            text: "Вы не сможете восстановить этот мнимый запись!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Удалить",
+            cancelButtonText: "Отмена",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }, function(isConfirm){
+            if (isConfirm) {
+                swal("Удаленно!", "ваш запись успешно удаленно.", "success");
+            } else {
+                swal("Отменена", "Ваш мнимый запись безопасен.", "error");
             }
+        });
+    });
 
-            .full-height {
-                height: 100vh;
-            }
+    },
+    //init
+    $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert
+}(window.jQuery),
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+//initializing
+function($) {
+    "use strict";
+    $.SweetAlert.init()
+}(window.jQuery);
+</script>
 
-            .position-ref {
-                position: relative;
-            }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
 
-            .content {
-                text-align: center;
-            }
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+            <div class="card-actions">
+                <a style="float: left!important; font-size: 25px!important;" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                <h2 style="float: right!important;" class="add-ct-btn">
+                    <a href="/items/create?category_id=<?=$menu['LINK_ID']?>">
+                    <button type="button" class="btn waves-effect waves-light btn-rounded btn-success">+ Добавить</button>
+                    </a>
+                </h2>
+            </div>
+            <h4 class="card-title m-b-0">Список данных</h4>
+        </div>
 
-            .title {
-                font-size: 84px;
-            }
+        <div class="card-body collapse show">
+            <div class="table-responsive">
+                <table class="table product-overview">
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Приход / расход</th>
+                            <th>Категория</th>
+                            <th>Сумма</th>
+                            <th>Комментарий</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?foreach($menu['ELEMENTS'] as $ele){?>
+                        <tr>
+                            <td><?=$ele['DATE']?></td>
+                            <td><?=$ele['EXPENSE']?></td>
+                            <td><?=$menu['CURRENT']?></td>
+                            <td><?=$ele['PRICE']?></td>
+                            <td><?=$ele['COMMENTS']?></td>
+                            <td>
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+                            <form action="{{ route('items.destroy', $ele['ID']) }}" method="post">
+                                <!-- <input type="hidden" name="_method" value="DELETE"> -->
+                                {{ method_field('DELETE') }}
+                                {{ csrf_field() }}
+                                <a  href="{{ route('items.edit', $ele['ID']) }}"
+                                    class="text-inverse p-r-10"
+                                    data-toggle="tooltip"
+                                    title=""
+                                    data-original-title="Изменить">
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+                                        <i class="ti-marker-alt"></i>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    shox
-                </div>
+                                </a>
+                                <button data-original-title="Удалить" data-toggle="tooltip" id="sa-params" type="submit" style="cursor: pointer;background: none;border: none;">
+                                    <i class="ti-trash"></i>
+                                </button>
+                            </form>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-
+                            </td>
+                        </tr>
+                    <?}?>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </body>
-</html>
+
+    </div>
+
+</div>
+
+
+@endsection

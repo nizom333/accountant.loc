@@ -3,9 +3,9 @@
 @section('content')
 
 @component('component.breadcrumbs')
-    @slot('title') Список данных @endslot
+    @slot('title') Список категории @endslot
     @slot('main') Главная @endslot
-    @slot('active') Список данных @endslot
+    @slot('active') Список категории @endslot
 @endcomponent
 
 <script>
@@ -59,7 +59,7 @@ function($) {
             <div class="card-actions">
                 <a style="float: left!important; font-size: 25px!important;" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                 <h2 style="float: right!important;" class="add-ct-btn">
-                    <a href="/items/create?category_id=<?=$menu['LINK_ID']?>">
+                    <a href="/settings/params/create?category_id=11">
                     <button type="button" class="btn waves-effect waves-light btn-rounded btn-success">+ Добавить</button>
                     </a>
                 </h2>
@@ -72,28 +72,27 @@ function($) {
                 <table class="table product-overview">
                     <thead>
                         <tr>
-                            <th>Дата</th>
-                            <th>Приход / расход</th>
-                            <th>Категория</th>
-                            <th>Сумма</th>
-                            <th>Комментарий</th>
+                            <th>Название категории</th>
+                            <th>Родительский Идентификатор</th>
+                            <th>Идентификатор</th>
+                            <th>Класс</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?foreach($menu['ELEMENTS'] as $ele){?>
                         <tr>
-                            <td><?=$ele['DATE']?></td>
-                            <td><?=$ele['EXPENSE']?></td>
-                            <td><?=$ele['CATEGORY_ID']?></td>
-                            <td><?=$ele['PRICE']?></td>
-                            <td><?=$ele['COMMENTS']?></td>
+                            <td><?=$ele->title?></td>
+                            <td><?=$ele->id?></td>
+                            <td><?=$ele->parent_id?></td>
+                            <td><?=$ele->class?></td>
                             <td>
 
-                            <form action="{{ route('items.destroy', $ele['ID']) }}" method="post">
+
+                            <form action="{{ route('category.destroy', $ele->id) }}" method="post">
                                 <!-- <input type="hidden" name="_method" value="DELETE"> -->
                                 {{ method_field('DELETE') }}
                                 {{ csrf_field() }}
-                                <a  href="{{ route('items.edit', $ele['ID']) }}"
+                                <a  href="{{ route('category.edit', $ele->id) }}"
                                     class="text-inverse p-r-10"
                                     data-toggle="tooltip"
                                     title=""
@@ -106,6 +105,7 @@ function($) {
                                     <i class="ti-trash"></i>
                                 </button>
                             </form>
+
 
                             </td>
                         </tr>

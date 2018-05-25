@@ -7,11 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/assets/images/favicon.png') }}">
-    <title>{{ config('app.name', 'Домашняя бухгалтерия') }}</title>
+    <title>Домашняя бухгалтерия</title>
     <link href="{{ asset('/assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/assets/plugins/morrisjs/morris.css') }}" rel="stylesheet">
     <link href="{{ asset('/assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('/assets/css/colors/blue.css') }}" id="theme" rel="stylesheet">
+    <link href="{{ asset('/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -48,7 +49,6 @@
                         <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                     </ul>
                     <ul class="navbar-nav my-lg-0">
-
 						@if (Auth::guest())
 						<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="{{ route('login') }}">
@@ -126,6 +126,12 @@
                                 <?}?>
                             </li>
                         <?}?>
+                        <li>
+                            <a style="background:#fff;" class="has-arrow waves-effect waves-dark" href="/settings">
+                                <i class="mdi mdi-settings"></i>
+                                <span class="hide-menu">Настройки Категории</span>
+                            </a>
+                        </li>
 					</ul>
 				</nav>
             </div>
@@ -158,6 +164,9 @@
     <script src="{{ asset('/assets/js/dashboard1.js') }}"></script>
     <script src="{{ asset('/assets/plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
     <script src="{{ asset('/assets/plugins/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('/assets/plugins/moment/moment.js') }}"></script>
+    <script src="{{ asset('/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
+    <script>$('#min-date').bootstrapMaterialDatePicker({ format: 'DD/MM/YYYY HH:mm', minDate: new Date() });</script>
     <!-- <script src="{{ asset('/assets/plugins/sweetalert/jquery.sweet-alert.custom.js') }}"></script> -->
 </body>
 

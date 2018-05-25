@@ -40,7 +40,8 @@ class ItemsController extends Controller
                 $item[$cat->id]['CLASS'] = $cat->class;
             }
         }
-        $menu = ['MENU'=>$item];
+        $edit_item = Items::all();
+        $menu = ['MENU'=>$item,"ITEM" => $edit_item];
         return view('items.create')->with('menu', $menu);
 
     }
@@ -99,10 +100,10 @@ class ItemsController extends Controller
                 $item[$cat->id]['CLASS'] = $cat->class;
             }
         }
-        $edit_id = Items::where('ID', $id);
+        $edit_item = Items::find($id);
         $menu = array(
             "MENU" => $item,
-            "ID" => $edit_id
+            "ITEM" => $edit_item
         );
         return view('items.edit')->with('menu', $menu);
     }
@@ -111,25 +112,29 @@ class ItemsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Items  $items
+     * @param  int  $item
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $task = Items::where('ID', $id);
+        $task = Items::findOrFail($id);
         $task->DATE = $request->input('DATE');
-        $task->USER_ID = $request->input('USER_ID');
+        $task->CATEGORY_ID = $request->input('CATEGORY_ID');
         $task->PRICE = $request->input('PRICE');
         $task->COMMENTS = $request->input('COMMENTS');
-
-        if ($task->completed == '1') {
-            $return_msg = 'Task Completed !!!';
-        } else {
-            $task->completed = 0;
-            $return_msg = 'Task Updated';
-        }
+        dd($task);
+        // if ($task->completed == '1') {
+        //     $return_msg = 'Task Completed !!!';
+        // } else {
+        //     $task->completed = 0;
+        //     $return_msg = 'Task Updated';
+        // }
 
         $task->save();
+
+        // $i = Items::find($id)->update($request->all());
+
+        // return Redirect::back();
     }
 
     /**

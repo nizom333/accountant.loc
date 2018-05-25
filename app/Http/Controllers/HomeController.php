@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Items;
 
 class HomeController extends Controller
 {
@@ -25,17 +26,21 @@ class HomeController extends Controller
     public function index()
     {
         $cats = Category::all();
-        $menu = [];
+        $items = [];
         foreach($cats as $cat){
             if(isset($cat->parent_id)){
-                $menu[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
-                $menu[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
+                $items[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
+                $items[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
             }else{
-                $menu[$cat->id]['NAME'] = $cat->title;
-                $menu[$cat->id]['ID'] = $cat->id;
-                $menu[$cat->id]['CLASS'] = $cat->class;
+                $items[$cat->id]['NAME'] = $cat->title;
+                $items[$cat->id]['ID'] = $cat->id;
+                $items[$cat->id]['CLASS'] = $cat->class;
             }
         }
-        return view('dashboard')->with('menu', $menu);
+        $menu = array(
+            'MENU'=>$items,
+            'ELEMENTS'=>$cats,
+        );
+        return view('category.sections')->with('menu', $menu);
     }
 }

@@ -1,6 +1,6 @@
 <div class="form-group col-md-4 m-t-20">
     <label class="control-label">Дата</label>
-    <input type="date" name="DATE" class="form-control" placeholder="{{ date('d.m.Y') }}">
+    <input type="text" name="DATE" class="form-control" placeholder="{{ date('d/m/Y H:m') }}" id="min-date" data-dtp="dtp_OZJ8v">
 </div>
 
 

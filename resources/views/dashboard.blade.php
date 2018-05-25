@@ -59,13 +59,13 @@
             <div class="message-box contact-box">
                 <h2 class="add-ct-btn"><button type="button" class="btn btn-circle btn-lg btn-success waves-effect waves-dark">+</button></h2>
                 <div class="message-widget contact-widget">
-                    <!-- Message -->
-                    <a href="#">
-                        <div class="user-img"> <img src="../assets/images/users/1.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
+                    <?foreach($menu['LIST'] as $arItem){?>
+                    <a href="/items/<?=$arItem['ID']?>/edit">
                         <div class="mail-contnet">
-                            <h5>Pavan kumar</h5> <span class="mail-desc">info@wrappixel.com</span></div>
+                            <h5><?=$arItem["DATE"]?></h5><span class="mail-desc"><?=$arItem["COMMENTS"]?></span>
+                        </div>
                     </a>
-                    <!-- Message -->
+                    <?}?>
                     <a href="#">
                         <div class="user-img"> <img src="../assets/images/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
                         <div class="mail-contnet">

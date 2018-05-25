@@ -8,13 +8,13 @@ use Illuminate\Support\Str;
 
 class Category extends Model
 {
-    /*
-	// Mass assigned
-    protected $fillable = ['title', 'parent_id'];
+    public $timestamps = false;
 
-	// Get children category
-    public function children() {
-      return $this->hasMany(self::class, 'parent_id');
-    }
-    */
+    protected $fillable = [
+        'id',
+        'title',
+        'parent_id',
+        'class',
+        'user_id'
+      ];
 }
