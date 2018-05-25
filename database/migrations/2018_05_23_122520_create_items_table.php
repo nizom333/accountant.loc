@@ -17,8 +17,8 @@ class CreateItemsTable extends Migration
             $table->increments('ID');
             $table->integer('CATEGORY_ID')->nullable();
             $table->integer('USER_ID')->nullable();
-            $table->date('DATE')->nullable();
-            $table->string('PRICE')->nullable();
+            $table->string('DATE')->nullable();
+            $table->integer('PRICE')->nullable();
             $table->string('COMMENTS')->nullable();
         });
     }
