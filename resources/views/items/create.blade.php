@@ -26,6 +26,11 @@
     </div>
     <div class="col-md-7 align-self-center">
         <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+
+                    <a href="/">Главная</a>
+
+            </li>
 
             <li class="breadcrumb-item">
 
@@ -83,7 +88,8 @@
         <div class="col-12">
             <div class="card card-outline-info">
                 <div class="card-header">
-                    <h4 class="m-b-0 text-white">Добавление
+                    <a href="/category/<?=$_GET['category_id']?>" class="btn waves-effect waves-light waves-light btn-sm btn-success"><i class="mdi mdi-keyboard-backspace"></i> Назад</a>
+                    <h4 style="float: right;" class="m-b-0 text-white">Добавление
                         <?foreach($menu['MENU'] as $item):?>
 
                             <?if(!empty($item['CHILD'])):?>
@@ -93,8 +99,12 @@
                                     <?if($child['ID'] == $_GET['category_id']){?>
 
                                         <?$text = substr($item['NAME'], 0, -2);?>
-
+                                        <?if($text == 'Доход'){?>
+                                            <span style="text-transform: lowercase;"><?=$text?>а</span>
+                                        <?}else {?>
                                             <span style="text-transform: lowercase;"><?=$text?></span>
+                                        <?}?>
+
                                     <?}?>
 
                                 <?endforeach?>
@@ -120,7 +130,6 @@
                         <label>Категория</label>
                         <select name="CATEGORY_ID" class="form-control">
                         <?foreach($menu['MENU'] as $item){?>
-                            <option value="<?=$item['ID']?>"><?=$item['NAME']?></option>
                             <?if(!empty($item['CHILD'])){?>
                                 <?foreach($item['CHILD'] as $child){?>
                                     <?if($child['ID'] == $_GET['category_id']){?>

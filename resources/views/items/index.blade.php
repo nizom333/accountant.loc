@@ -27,7 +27,11 @@
 
     <div class="col-md-7 align-self-center">
         <ol class="breadcrumb">
+            <li class="breadcrumb-item">
 
+                    <a href="/">Главная</a>
+
+            </li>
             <li class="breadcrumb-item">
 
                     <?foreach($menu['MENU'] as $item):?>
@@ -133,7 +137,7 @@
                                 <!-- <input type="hidden" name="_method" value="DELETE"> -->
                                 {{ method_field('DELETE') }}
                                 {{ csrf_field() }}
-                                <a  href="{{ route('items.edit', $ele['ID']) }}"
+                                <a  href="{{ route('items.edit', $ele['ID']) }}?category_id=<?=$menu['LINK_ID']?>"
                                     class="text-inverse p-r-10"
                                     data-toggle="tooltip"
                                     title=""

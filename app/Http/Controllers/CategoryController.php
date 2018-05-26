@@ -36,7 +36,8 @@ class CategoryController extends Controller
             }
         }
 
-        $items_el = Items::all();
+        $items_el = Items::orderBy('ID', 'desc')->get();
+        //$items_el
         $list = [];
         foreach($items_el as $i){
             if($i->USER_ID == Auth::id()){
@@ -121,7 +122,7 @@ class CategoryController extends Controller
             }
         }
 
-        $elements = Items::where('CATEGORY_ID', $id)->get();
+        $elements = Items::where('CATEGORY_ID', $id)->orderBy('ID', 'desc')->get();
         $element_list = [];
         foreach($elements as $element){
             if($element->CATEGORY_ID == $id && $element->USER_ID == Auth::id()){
