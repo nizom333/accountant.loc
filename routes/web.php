@@ -12,8 +12,9 @@
 */
 
 //Route::resource('/home', 'CategoryController');
+Auth::routes();
 Route::resource('/category', 'CategoryController');
-Route::resource('/items', 'ItemsController');
+Route::resource('/category/items', 'ItemsController');
 Route::resource('/settings/params', 'CategoryController');
 
 Route::get('/', 'CategoryController@index');
@@ -21,4 +22,4 @@ Route::get('/', 'CategoryController@index');
 Route::resource('/settings', 'HomeController');
 
 
-Auth::routes();
+

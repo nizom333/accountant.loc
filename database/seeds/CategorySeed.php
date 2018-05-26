@@ -17,7 +17,7 @@ class CategorySeed extends Seeder
                 'id' => 1,
                 'title' => 'Доходы',
                 'parent_id' =>null,
-                'class' => 'mdi mdi-book-open-variant'
+                'class' => 'fa fa-money'
             ],
             [
                 'id' => 2,

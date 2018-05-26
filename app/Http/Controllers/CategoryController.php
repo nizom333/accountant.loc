@@ -11,6 +11,10 @@ use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +22,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+
         $cats = Category::all();
         $items = [];
         foreach($cats as $cat){
@@ -34,12 +39,14 @@ class CategoryController extends Controller
         $items_el = Items::all();
         $list = [];
         foreach($items_el as $i){
-            $list[$i->ID]['ID'] = $i->ID;
-            $list[$i->ID]['CATEGORY_ID'] = $i->CATEGORY_ID;
-            $list[$i->ID]['USER_ID'] = $i->USER_ID;
-            $list[$i->ID]['DATE'] = $i->DATE;
-            $list[$i->ID]['PRICE'] = $i->PRICE;
-            $list[$i->ID]['COMMENTS'] = $i->COMMENTS;
+            if($i->USER_ID == Auth::id()){
+                $list[$i->ID]['ID'] = $i->ID;
+                $list[$i->ID]['CATEGORY_ID'] = $i->CATEGORY_ID;
+                $list[$i->ID]['USER_ID'] = $i->USER_ID;
+                $list[$i->ID]['DATE'] = $i->DATE;
+                $list[$i->ID]['PRICE'] = $i->PRICE;
+                $list[$i->ID]['COMMENTS'] = $i->COMMENTS;
+            }
         }
         $menu = array(
             'MENU'=>$items,
@@ -117,7 +124,7 @@ class CategoryController extends Controller
         $elements = Items::where('CATEGORY_ID', $id)->get();
         $element_list = [];
         foreach($elements as $element){
-            if($element->CATEGORY_ID == $id){
+            if($element->CATEGORY_ID == $id && $element->USER_ID == Auth::id()){
                 $element_list[$element->ID]['ID'] = $element->ID;
                 $element_list[$element->ID]['CATEGORY_ID'] = $element->CATEGORY_ID;
                 $element_list[$element->ID]['USER_ID'] = $element->USER_ID;
@@ -175,8 +182,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request,  $id)
     {
-        Category::where('id', $id)->update($request->all());
-        return Redirect::back();
+        $item = Category::find($id);
+        $item->DATE = $request->input('id');
+        $item->CATEGORY_ID = $request->input('title');
+        $item->PRICE = $request->input('parent_id');
+        $item->COMMENTS = $request->input('class');
+        $item->save();
+
+        return redirect()->back();
     }
 
     /**

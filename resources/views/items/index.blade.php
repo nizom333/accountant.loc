@@ -2,54 +2,80 @@
 
 @section('content')
 
-@component('component.breadcrumbs')
-    @slot('title') Список данных @endslot
-    @slot('main') Главная @endslot
-    @slot('active') Список данных @endslot
-@endcomponent
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">
+            <?foreach($menu['MENU'] as $item):?>
 
-<script>
+                <?if(!empty($item['CHILD'])):?>
 
-!function($) {
-    "use strict";
+                    <?foreach($item['CHILD'] as $child){?>
 
-    var SweetAlert = function() {};
+                        <?if($child['ID'] == $menu['LINK_ID']){?>
 
-    //examples
-    SweetAlert.prototype.init = function() {
+                            <?=$child['NAME']?>
 
-    //Parameter
-    $('#sa-params').click(function(){
-        swal({
-            title: "Вы уверен?",
-            text: "Вы не сможете восстановить этот мнимый запись!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Удалить",
-            cancelButtonText: "Отмена",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        }, function(isConfirm){
-            if (isConfirm) {
-                swal("Удаленно!", "ваш запись успешно удаленно.", "success");
-            } else {
-                swal("Отменена", "Ваш мнимый запись безопасен.", "error");
-            }
-        });
-    });
+                        <?}?>
 
-    },
-    //init
-    $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert
-}(window.jQuery),
+                    <?}?>
 
-//initializing
-function($) {
-    "use strict";
-    $.SweetAlert.init()
-}(window.jQuery);
-</script>
+                <?endif?>
+
+            <?endforeach?>
+        </h3>
+    </div>
+
+    <div class="col-md-7 align-self-center">
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item">
+
+                    <?foreach($menu['MENU'] as $item):?>
+
+                        <?if(!empty($item['CHILD'])):?>
+
+                            <?foreach($item['CHILD'] as $child):?>
+
+                                <?if($child['ID'] == $menu['LINK_ID']){?>
+
+                                    <a href="/category/<?=$child['ID']?>"><?=$item['NAME']?></a>
+
+                                <?}?>
+
+                            <?endforeach?>
+
+                        <?endif?>
+
+                    <?endforeach?>
+
+            </li>
+
+            <li class="breadcrumb-item active">
+                <?foreach($menu['MENU'] as $item):?>
+
+                    <?if(!empty($item['CHILD'])):?>
+
+                        <?foreach($item['CHILD'] as $child){?>
+
+                            <?if($child['ID'] == $menu['LINK_ID']){?>
+
+                                <?=$child['NAME']?>
+
+                            <?}?>
+
+                        <?}?>
+
+                    <?endif?>
+
+                <?endforeach?>
+            </li>
+
+
+
+        </ol>
+    </div>
+
+</div>
 
 
 
@@ -59,21 +85,36 @@ function($) {
             <div class="card-actions">
                 <a style="float: left!important; font-size: 25px!important;" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                 <h2 style="float: right!important;" class="add-ct-btn">
-                    <a href="/items/create?category_id=<?=$menu['LINK_ID']?>">
+                    <a href="/category/items/create?category_id=<?=$menu['LINK_ID']?>">
                     <button type="button" class="btn waves-effect waves-light btn-rounded btn-success">+ Добавить</button>
                     </a>
                 </h2>
             </div>
-            <h4 class="card-title m-b-0">Список данных</h4>
-        </div>
+            <h4 class="card-title m-b-0">
+                <?foreach($menu['MENU'] as $item):?>
 
+                    <?if(!empty($item['CHILD'])):?>
+
+                        <?foreach($item['CHILD'] as $child):?>
+
+                            <?if($child['ID'] == $menu['LINK_ID']){?>
+                                <?=$item['NAME']?>
+                            <?}?>
+
+                        <?endforeach?>
+
+                    <?endif?>
+
+                <?endforeach?>
+            </h4>
+        </div>
+    <?if(!empty($menu['ELEMENTS'])){?>
         <div class="card-body collapse show">
             <div class="table-responsive">
                 <table class="table product-overview">
                     <thead>
                         <tr>
                             <th>Дата</th>
-                            <th>Приход / расход</th>
                             <th>Категория</th>
                             <th>Сумма</th>
                             <th>Комментарий</th>
@@ -83,7 +124,6 @@ function($) {
                     <?foreach($menu['ELEMENTS'] as $ele){?>
                         <tr>
                             <td><?=$ele['DATE']?></td>
-                            <td><?=$ele['EXPENSE']?></td>
                             <td><?=$menu['CURRENT']?></td>
                             <td><?=$ele['PRICE']?></td>
                             <td><?=$ele['COMMENTS']?></td>
@@ -114,7 +154,9 @@ function($) {
                 </table>
             </div>
         </div>
-
+    <?}else{?>
+        <h4 class="text-center" style="margin-bottom:20px; color:#e41111">Раздел пусто.</h4>
+    <?}?>
     </div>
 
 </div>

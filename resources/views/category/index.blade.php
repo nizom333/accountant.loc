@@ -2,11 +2,6 @@
 
 @section('content')
 
-@component('component.breadcrumbs')
-    @slot('title') Список категории @endslot
-    @slot('main') Главная @endslot
-    @slot('active') Список категории @endslot
-@endcomponent
 
 <script>
 

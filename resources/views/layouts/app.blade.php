@@ -19,6 +19,8 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -132,13 +134,6 @@
                                 <?}?>
                             </li>
                         <?}?>
-						<li class="nav-devider"></li>
-                        <li>
-                            <a style="background:#fff;" class="has-arrow waves-effect waves-dark" href="/settings">
-                                <i class="mdi mdi-settings"></i>
-                                <span class="hide-menu">Настройки</span>
-                            </a>
-                        </li>
 					</ul>
 				</nav>
             </div>
@@ -146,7 +141,6 @@
 
 
         <div class="page-wrapper">
-
 
             @yield('content')
 
@@ -173,7 +167,7 @@
     <script src="{{ asset('/assets/plugins/sweetalert/sweetalert.min.js') }}"></script>
     <script src="{{ asset('/assets/plugins/moment/moment.js') }}"></script>
     <script src="{{ asset('/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
-    <script>$('#min-date').bootstrapMaterialDatePicker({ format: 'DD/MM/YYYY HH:mm', minDate: new Date() });</script>
+    <script>$('#min-date').bootstrapMaterialDatePicker({ format: 'DD.MM.YYYY HH:mm', minDate: new Date() });</script>
     <!-- <script src="{{ asset('/assets/plugins/sweetalert/jquery.sweet-alert.custom.js') }}"></script> -->
 </body>
 

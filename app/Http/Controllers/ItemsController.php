@@ -40,8 +40,7 @@ class ItemsController extends Controller
                 $item[$cat->id]['CLASS'] = $cat->class;
             }
         }
-        $edit_item = Items::all();
-        $menu = ['MENU'=>$item,"ITEM" => $edit_item];
+        $menu = ['MENU'=>$item];
         return view('items.create')->with('menu', $menu);
 
     }
@@ -66,6 +65,7 @@ class ItemsController extends Controller
             'COMMENTS' => $request['COMMENTS'],
         ]);
         return Redirect::back();
+        // return redirect()->action('CategoryController@show', $params);
 
     }
 
@@ -117,24 +117,14 @@ class ItemsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $task = Items::findOrFail($id);
-        // $task->DATE = $request->input('DATE');
-        // $task->CATEGORY_ID = $request->input('CATEGORY_ID');
-        // $task->PRICE = $request->input('PRICE');
-        // $task->COMMENTS = $request->input('COMMENTS');
-        // dd($task);
-        // if ($task->completed == '1') {
-        //     $return_msg = 'Task Completed !!!';
-        // } else {
-        //     $task->completed = 0;
-        //     $return_msg = 'Task Updated';
-        // }
+        $item = Items::find($id);
+        $item->DATE = $request->input('DATE');
+        $item->CATEGORY_ID = $request->input('CATEGORY_ID');
+        $item->PRICE = $request->input('PRICE');
+        $item->COMMENTS = $request->input('COMMENTS');
+        $item->save();
 
-        // $task->save();
-
-        // $i = Items::find($id)->update($request->all());
-        Items::where('ID', $id)->update($request->all());
-        return Redirect::back();
+        return back();
     }
 
     /**

@@ -2,14 +2,79 @@
 
 @section('content')
 
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">
+            <?foreach($menu['MENU'] as $item):?>
 
-@component('component.breadcrumbs')
-    @slot('title') Редактирование записи @endslot
-    @slot('main') Список данных @endslot
-    @slot('active') Редактирование записи @endslot
-@endcomponent
+                <?if(!empty($item['CHILD'])):?>
 
-<?//dd($menu['ITEM']);?>
+                    <?foreach($item['CHILD'] as $child){?>
+
+                        <?if($child['ID'] == $menu['ITEM']->CATEGORY_ID){?>
+
+                            <?=$child['NAME']?>
+
+                        <?}?>
+
+                    <?}?>
+
+                <?endif?>
+
+            <?endforeach?>
+        </h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item">
+
+                    <?foreach($menu['MENU'] as $item):?>
+
+                        <?if(!empty($item['CHILD'])):?>
+
+                            <?foreach($item['CHILD'] as $child):?>
+
+                                <?if($child['ID'] == $menu['ITEM']->CATEGORY_ID){?>
+
+                                    <a href="/category/<?=$child['ID']?>"><?=$item['NAME']?></a>
+
+                                <?}?>
+
+                            <?endforeach?>
+
+                        <?endif?>
+
+                    <?endforeach?>
+
+            </li>
+
+            <li class="breadcrumb-item active">
+                <?foreach($menu['MENU'] as $item):?>
+
+                    <?if(!empty($item['CHILD'])):?>
+
+                        <?foreach($item['CHILD'] as $child){?>
+
+                            <?if($child['ID'] == $menu['ITEM']->CATEGORY_ID){?>
+
+                                <?=$child['NAME']?>
+
+                            <?}?>
+
+                        <?}?>
+
+                    <?endif?>
+
+                <?endforeach?>
+            </li>
+
+
+
+        </ol>
+    </div>
+</div>
+
 
 <div class="container-fluid">
 
@@ -17,16 +82,35 @@
         <div class="col-12">
             <div class="card card-outline-info">
                 <div class="card-header">
-                    <h4 class="m-b-0 text-white">Редактирование записи</h4>
+                    <h4 class="m-b-0 text-white">Редактирование
+                    <?foreach($menu['MENU'] as $item):?>
+
+                        <?if(!empty($item['CHILD'])):?>
+
+                            <?foreach($item['CHILD'] as $child):?>
+
+                                <?if($child['ID'] == $menu['ITEM']->CATEGORY_ID){?>
+
+                                    <?$text = substr($item['NAME'], 0, -2);?>
+                                    <span style="text-transform: lowercase;"><?=$text?></span>
+
+                                <?}?>
+
+                            <?endforeach?>
+
+                        <?endif?>
+
+                    <?endforeach?>
+                    </h4>
                 </div>
                 <div class="card-body">
-                    <form class="form-material m-t-40 row" action="/items/update/<?=$menu['ITEM']->ID?>" method="PATCH">
+                    <form class="form-material m-t-40 row" action="/category/items/<?=$menu['ITEM']->ID?>" method="POST">
                         {{ csrf_field() }}
                         <input type="hidden" name="_method" value="put">
 
                         <div class="form-group col-md-4 m-t-20">
                             <label class="control-label">Дата</label>
-                            <input type="text" name="DATE" class="form-control" placeholder="{{ date('d/m/Y H:m') }}" id="min-date" data-dtp="dtp_OZJ8v">
+                            <input type="text" name="DATE" class="form-control" value="<?=date('d.m.Y H:i')?>" id="min-date" data-dtp="dtp_OZJ8v">
                         </div>
 
 
@@ -55,12 +139,14 @@
                         <div class="form-group col-md-12 m-t-20">
                             <label>Комментарий</label>
                             <textarea class="form-control" name="COMMENTS" rows="5"><?=$menu['ITEM']->COMMENTS?></textarea>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Сохранить</button>
+                                <a href="{{ URL::previous() }}"><button type="button" class="btn btn-inverse">Отмена</button></a>
+                            </div>
                         </div>
 
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Сохранить</button>
-                            <a href="{{ URL::previous() }}"><button type="button" class="btn btn-inverse">Отмена</button></a>
-                        </div>
+
 
                     </form>
                 </div>
