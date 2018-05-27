@@ -120,7 +120,7 @@
                             </a>
                         </li>
                         <?foreach($menu['MENU'] as $item){?>
-                            <li>
+                            <li class="<?if(isset($_GET['category_id'])){echo'active';}?>">
                                 <a style="background:#fff;" class="has-arrow waves-effect waves-dark" href="/category/<?=$item['ID']?>" aria-expanded="false">
                                     <i class="<?=$item['CLASS']?>"></i>
                                     <span class="hide-menu"><?=$item['NAME']?></span>

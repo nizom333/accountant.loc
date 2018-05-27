@@ -63,7 +63,7 @@
 
                             <?if($child['ID'] == $_GET['category_id']){?>
 
-                                <?=$child['NAME']?>
+                                <a href="/category/<?=$child['ID']?>"><?=$child['NAME']?></a>
 
                             <?}?>
 
