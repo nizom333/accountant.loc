@@ -184,13 +184,13 @@ class CategoryController extends Controller
     public function update(Request $request,  $id)
     {
         $item = Category::find($id);
-        $item->DATE = $request->input('id');
-        $item->CATEGORY_ID = $request->input('title');
-        $item->PRICE = $request->input('parent_id');
-        $item->COMMENTS = $request->input('class');
+        $item->id = $request->input('id');
+        $item->title = $request->input('title');
+        $item->parent_id = $request->input('parent_id');
+        $item->class = $request->input('class');
         $item->save();
 
-        return redirect()->back();
+        return Redirect::back();
     }
 
     /**

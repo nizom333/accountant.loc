@@ -3,13 +3,14 @@
 @section('content')
 
 
-@component('component.breadcrumbs')
-    @slot('title') Редактирование категории @endslot
-    @slot('main') Список категории @endslot
-    @slot('active') Редактирование категории @endslot
-@endcomponent
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Главная настройка</h3>
 
-<?dump($menu['ITEM']);?>
+    </div>
+</div>
+
+<?//dump($menu['ITEM']);?>
 
 <div class="container-fluid">
 
@@ -32,9 +33,10 @@
                         <div class="form-group col-md-4 m-t-20">
                             <label>Категория</label>
                             <select name="parent_id" class="form-control">
-                            <?foreach($menu['MENU'] as $item){?>
-                                <option selected="<?=$item['ID']?>" value="<?=$item['ID']?>"><?=$item['NAME']?></option>
-                            <?}?>
+                                <option value="">Без категории</option>
+                                <?foreach($menu['MENU'] as $item){?>
+                                    <option selected="<?=$item['ID']?>" value="<?=$item['ID']?>"><?=$item['NAME']?></option>
+                                <?}?>
                             </select>
                         </div>
 

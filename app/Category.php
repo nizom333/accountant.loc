@@ -8,6 +8,10 @@ use Illuminate\Support\Str;
 
 class Category extends Model
 {
+    protected $table = 'categories';
+
+    protected $primaryKey = 'ID';
+
     public $timestamps = false;
 
     protected $fillable = [

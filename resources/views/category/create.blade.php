@@ -2,12 +2,13 @@
 
 @section('content')
 
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Главная настройка</h3>
 
-@component('component.breadcrumbs')
-    @slot('title') Добавление категории @endslot
-    @slot('main') Настройки категории @endslot
-    @slot('active') Добавление категории @endslot
-@endcomponent
+    </div>
+</div>
+
 
 
 <div class="container-fluid">
