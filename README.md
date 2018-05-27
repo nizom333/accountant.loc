@@ -17,14 +17,10 @@
 3. Из проектов root run `cp .env.example .env`
 4. НАСТРОЙТЕ ВАШ `.env` ФАЙЛ
 5. Запустите  `composer install` из корневой папки проектов
-
-			* ```sudo php artisan key:generate```
-
-			* ```php artisan migrate```
-
-			* ```composer dump-autoload```
-			
-			* ```php artisan db:seed```
+* ```php artisan key:generate```
+* ```php artisan migrate```
+* ```composer dump-autoload```
+* ```php artisan db:seed```
 
 #### Просмотр проекта в браузере
 1. В корневой папке проектов запускается `php artisan serve`
