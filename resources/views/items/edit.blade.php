@@ -79,14 +79,13 @@
     </div>
 </div>
 
-
 <div class="container-fluid">
 
     <div class="row">
         <div class="col-12">
             <div class="card card-outline-info">
                 <div class="card-header">
-                    <a href="{{ URL::previous() }}" class="btn waves-effect waves-light btn-sm btn-success"><i class="mdi mdi-keyboard-backspace"></i>Назад</a>
+                    <a href="/category/<?=$_GET['category_id']?>" class="btn waves-effect waves-light btn-sm btn-success"><i class="mdi mdi-keyboard-backspace"></i>Назад</a>
                     <h4 style="float: right;" class="m-b-0 text-white">Редактирование
                     <?foreach($menu['MENU'] as $item):?>
 
