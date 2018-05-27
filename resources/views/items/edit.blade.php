@@ -53,7 +53,7 @@
 
             </li>
 
-            <li class="breadcrumb-item active">
+            <li class="breadcrumb-item">
                 <?foreach($menu['MENU'] as $item):?>
 
                     <?if(!empty($item['CHILD'])):?>
@@ -62,7 +62,7 @@
 
                             <?if($child['ID'] == $menu['ITEM']->CATEGORY_ID){?>
 
-                                <?=$child['NAME']?>
+                                <a href="/category/<?=$child['ID']?>"><?=$child['NAME']?></a>
 
                             <?}?>
 
@@ -71,6 +71,10 @@
                     <?endif?>
 
                 <?endforeach?>
+            </li>
+
+            <li class="breadcrumb-item active">
+                Редактирование <?=$menu['ITEM']->DATE?>
             </li>
 
 

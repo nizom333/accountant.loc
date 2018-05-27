@@ -74,7 +74,31 @@
                 <?endforeach?>
             </li>
 
+            <li class="breadcrumb-item active">
+                Добавление
+                    <?foreach($menu['MENU'] as $item):?>
 
+                        <?if(!empty($item['CHILD'])):?>
+
+                            <?foreach($item['CHILD'] as $child):?>
+
+                                <?if($child['ID'] == $_GET['category_id']){?>
+
+                                    <?$text = substr($item['NAME'], 0, -2);?>
+                                    <?if($text == 'Доход'){?>
+                                        <span style="text-transform: lowercase;"><?=$text?>а</span>
+                                    <?}else {?>
+                                        <span style="text-transform: lowercase;"><?=$text?></span>
+                                    <?}?>
+
+                                <?}?>
+
+                            <?endforeach?>
+
+                        <?endif?>
+
+                    <?endforeach?>
+            </li>
 
         </ol>
     </div>
