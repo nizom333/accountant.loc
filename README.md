@@ -13,7 +13,6 @@
 5. Запустите  `composer install` из корневой папки проектов
 * ```php artisan key:generate```
 * ```php artisan migrate```
-* ```composer dump-autoload```
 * ```php artisan db:seed```
 
 #### Просмотр проекта в браузере

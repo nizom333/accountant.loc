@@ -17,13 +17,13 @@ class CategorySeed extends Seeder
                 'id' => 1,
                 'title' => 'Доходы',
                 'parent_id' =>null,
-                'class' => 'fa fa-money'
+                'class' => 'fas fa-hand-holding-usd'
             ],
             [
                 'id' => 2,
                 'title' => 'Затраты',
                 'parent_id' =>null,
-                'class' => 'mdi mdi-table'
+                'class' => 'fas fa-money-check-alt'
             ],
             [
                 'id' => 3,

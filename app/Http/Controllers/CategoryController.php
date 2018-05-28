@@ -24,6 +24,7 @@ class CategoryController extends Controller
     {
 
         $cats = Category::all();
+        $items_el = Items::orderBy('ID', 'desc')->get();
         $items = [];
         foreach($cats as $cat){
             if(isset($cat->parent_id)){
@@ -36,8 +37,7 @@ class CategoryController extends Controller
             }
         }
 
-        $items_el = Items::orderBy('ID', 'desc')->get();
-        //$items_el
+
         $list = [];
         foreach($items_el as $i){
             if($i->USER_ID == Auth::id()){
@@ -49,9 +49,10 @@ class CategoryController extends Controller
                 $list[$i->ID]['COMMENTS'] = $i->COMMENTS;
             }
         }
+
         $menu = array(
             'MENU'=>$items,
-            "LIST"=>$list
+            "ELEMENTS"=>$list
         );
 
         return view('dashboard')->with('menu', $menu);

@@ -64,7 +64,7 @@ class ItemsController extends Controller
             'CATEGORY_ID' => $request['CATEGORY_ID'],
             'COMMENTS' => $request['COMMENTS'],
         ]);
-        return Redirect::back();
+        return redirect('/category/'.$request['CATEGORY_ID']);
         // return redirect()->action('CategoryController@show', $params);
 
     }
@@ -124,7 +124,8 @@ class ItemsController extends Controller
         $item->COMMENTS = $request->input('COMMENTS');
         $item->save();
 
-        return back();
+        return redirect('/category/'.$request->input('CATEGORY_ID'));
+
     }
 
     /**
