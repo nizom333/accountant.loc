@@ -11,7 +11,7 @@ class CategorySeed extends Seeder
      */
     public function run()
     {
-        // Миграция категории
+        // Миграция категории !
         DB::table('categories')->insert([
             [
                 'id' => 1,
