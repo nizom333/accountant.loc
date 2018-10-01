@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Items;
-use Redirect;
-use Auth;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Category,
+	App\Items,
+	Redirect,
+	Auth,
+	Illuminate\Http\Request,
+	App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {

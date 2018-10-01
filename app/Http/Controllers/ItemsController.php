@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Items;
-use Auth;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Redirect;
+use App\Category,
+	App\Items,
+	Auth,
+	Illuminate\Http\Request,
+	App\Http\Controllers\Controller,
+	Redirect;
 
 class ItemsController extends Controller
 {
@@ -125,7 +125,6 @@ class ItemsController extends Controller
         $item->save();
 
         return redirect('/category/'.$request->input('CATEGORY_ID'));
-
     }
 
     /**
