@@ -52,18 +52,18 @@
                     </ul>
                     <ul class="navbar-nav my-lg-0">
 						@if (Auth::guest())
-						<li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="{{ route('login') }}">
-								<i class="fa fa-sign-in"></i>
-                                <div class="notify"><span class="heartbit"></span> <span class="point"></span> </div>
-                            </a>
-                        </li>
-						<li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="{{ route('register') }}">
-								<i class="fa fa-sign-out"></i>
-                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
-                            </a>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="{{ route('login') }}">
+                                    <i class="fa fa-sign-in"></i>
+                                    <div class="notify"><span class="heartbit"></span> <span class="point"></span> </div>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="{{ route('register') }}">
+                                    <i class="fa fa-sign-out"></i>
+                                    <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                                </a>
+                            </li>
                         @else
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -119,21 +119,25 @@
                                 <span class="hide-menu">Главная</span>
                             </a>
                         </li>
-                        <?foreach($menu['MENU'] as $item){?>
+                        @foreach($menu['MENU'] as $item)
                             <li>
-                                <a style="background:#fff;" class="has-arrow waves-effect waves-dark" href="" aria-expanded="false">
-                                    <i class="<?=$item['CLASS']?>"></i>
-                                    <span class="hide-menu"><?=$item['NAME']?></span>
+                                <a style="background:#fff;" class="has-arrow waves-effect waves-dark" href="javascript:void(0);" aria-expanded="false">
+                                    <i class="{{ $item['CLASS'] }}"></i>
+                                    <span class="hide-menu">{{ $item['NAME'] }}</span>
                                 </a>
-                                <?if(!empty($item['CHILD'])){?>
+                                @if(!empty($item['CHILD']))
                                     <ul aria-expanded="false" class="collapse">
-                                        <?foreach($item['CHILD'] as $child){?>
-                                            <li><a class="<?=($_GET['category_id'] == $child['ID'])?('active'):('')?>" href="/category/<?=$child['ID']?>"><?=$child['NAME']?></a></li>
-                                        <?}?>
+                                        @foreach($item['CHILD'] as $child)
+                                            <li>
+                                                <a class="{{ ($_GET['category_id'] == $child['ID'])?('active'):('') }}" href="/category/{{ $child['ID'] }}">
+                                                    {{ $child['NAME'] }}
+                                                </a>
+                                            </li>
+                                        @endforeach
                                     </ul>
-                                <?}?>
+                                @endif
                             </li>
-                        <?}?>
+                        @endforeach
 					</ul>
 				</nav>
             </div>
@@ -146,73 +150,45 @@
 <div class="row page-titles">
     <div class="col-md-5 align-self-center">
         <h3 class="text-themecolor">
-            <?foreach($menu['MENU'] as $item):?>
-
-                <?if(!empty($item['CHILD'])):?>
-
-                    <?foreach($item['CHILD'] as $child){?>
-
-                        <?if($child['ID'] == $_GET['category_id']){?>
-
-                            <?=$child['NAME']?>
-
-                        <?}?>
-
-                    <?}?>
-
-                <?endif?>
-
-            <?endforeach?>
+            @foreach($menu['MENU'] as $item)
+                @if(!empty($item['CHILD']))
+                    @foreach($item['CHILD'] as $child)
+                        @if($child['ID'] == $_GET['category_id'])
+                            {{ $child['NAME'] }}
+                        @endif
+                    @endforeach
+                @endif
+            @endforeach
         </h3>
     </div>
     <div class="col-md-7 align-self-center">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-
-                    <a href="/">Главная</a>
-
+                <a href="/">Главная</a>
             </li>
 
             <li class="breadcrumb-item">
-
-                    <?foreach($menu['MENU'] as $item):?>
-
-                        <?if(!empty($item['CHILD'])):?>
-
-                            <?foreach($item['CHILD'] as $child):?>
-
-                                <?if($child['ID'] == $_GET['category_id']){?>
-
-                                    <a href="/category/<?=$child['ID']?>"><?=$item['NAME']?></a>
-
-                                <?}?>
-
-                            <?endforeach?>
-
-                        <?endif?>
-
-                    <?endforeach?>
-
+                @foreach($menu['MENU'] as $item)
+                    @if(!empty($item['CHILD']))
+                        @foreach($item['CHILD'] as $child)
+                            @if($child['ID'] == $_GET['category_id'])
+                                <a href="/category/{{ $child['ID'] }}">{{ $item['NAME'] }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+                @endforeach
             </li>
 
             <li class="breadcrumb-item active">
-                <?foreach($menu['MENU'] as $item):?>
-
-                    <?if(!empty($item['CHILD'])):?>
-
-                        <?foreach($item['CHILD'] as $child){?>
-
-                            <?if($child['ID'] == $_GET['category_id']){?>
-
-                                <a href="/category/<?=$child['ID']?>"><?=$child['NAME']?></a>
-
-                            <?}?>
-
-                        <?}?>
-
-                    <?endif?>
-
-                <?endforeach?>
+                @foreach($menu['MENU'] as $item)
+                    @if(!empty($item['CHILD']))
+                        @foreach($item['CHILD'] as $child)
+                            @if($child['ID'] == $_GET['category_id'])
+                                <a href="/category/{{ $child['ID'] }}">{{ $child['NAME'] }}</a>
+                            @endif
+                        @endforeach
+                    @endif
+                @endforeach
             </li>
 
             <li class="breadcrumb-item active">
@@ -249,22 +225,23 @@
                     <div class="form-group col-md-4 m-t-20">
                         <label>Категория</label>
                         <select name="CATEGORY_ID" class="form-control">
-                        <?foreach($menu['MENU'] as $item){?>
-                            <?if(!empty($item['CHILD'])){?>
-                                <?foreach($item['CHILD'] as $child){?>
-                                    <?if($child['ID'] == $_GET['category_id']){?>
-                                        <option selected="<?=$child['ID']?>" value="<?=$child['ID']?>"><?=$child['NAME']?></option>
-                                    <?}else{?>
-                                        <option value="<?=$child['ID']?>"><?=$child['NAME']?></option>
-                                    <?}?>
-                                <?}?>
-                            <?}?>
-                        <?}?>
+                        @foreach($menu['MENU'] as $item)
+                            @if(!empty($item['CHILD']))
+                                @foreach($item['CHILD'] as $child)
+                                    @if($child['ID'] == $_GET['category_id'])
+                                        <option selected="{{ $child['ID'] }}" value="{{ $child['ID'] }}">{{ $child['NAME'] }}</option>
+                                    @else
+                                        <option value="{{ $child['ID'] }}">{{ $child['NAME'] }}</option>
+                                    @endif
+                                @endforeach
+                            @endif
+                        @endforeach
                         </select>
                     </div>
 
                     <div class="form-group col-md-4 m-t-20">
-                        <input type="number" style="line-height: 55px; overflow-y: hidden;" name="PRICE" class="form-control" placeholder="Сумма">
+                    <label class="control-label">Сумма</label>
+                        <input type="number" name="PRICE" class="form-control">
                     </div>
 
                     <div class="form-group col-md-12 m-t-20">
@@ -287,7 +264,7 @@
     </div>
 </div>
 
-            <footer class="footer"> © 2018 Домашняя бухгалтерия </footer>
+            <footer class="footer"> © {{ date('Y') }} Домашняя бухгалтерия </footer>
 
         </div>
 

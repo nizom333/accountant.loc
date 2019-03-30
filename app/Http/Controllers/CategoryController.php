@@ -11,10 +11,36 @@ use App\Category,
 
 class CategoryController extends Controller
 {
+	public function main(){
+		return Items::all();
+	}
+
     public function __construct()
     {
         $this->middleware('auth');
     }
+    /**
+     * Меню
+     */
+    public function menu()
+    {
+        $allCategories = Category::all();
+        $arResult = [];
+        foreach($allCategories as $category){
+            if(isset($category->parent_id)){
+                $arResult[$category->parent_id]['CHILD'][$category->id]['NAME'] = $category->title;
+                $arResult[$category->parent_id]['CHILD'][$category->id]['ID'] = $category->id;
+            }
+            else
+            {
+                $arResult[$category->id]['NAME'] = $category->title;
+                $arResult[$category->id]['ID'] = $category->id;
+                $arResult[$category->id]['CLASS'] = $category->class;
+            }
+        }
+        return $arResult;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,22 +48,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-
-        $cats = Category::all();
         $items_el = Items::orderBy('ID', 'desc')->get();
-        $items = [];
-        foreach($cats as $cat){
-            if(isset($cat->parent_id)){
-                $items[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
-                $items[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
-            }else{
-                $items[$cat->id]['NAME'] = $cat->title;
-                $items[$cat->id]['ID'] = $cat->id;
-                $items[$cat->id]['CLASS'] = $cat->class;
-            }
-        }
-
-
         $list = [];
         foreach($items_el as $i){
             if($i->USER_ID == Auth::id()){
@@ -51,8 +62,8 @@ class CategoryController extends Controller
         }
 
         $menu = array(
-            'MENU'=>$items,
-            "ELEMENTS"=>$list
+            'MENU' => $this->menu(),
+            "ELEMENTS" => $list
         );
 
         return view('dashboard')->with('menu', $menu);
@@ -65,20 +76,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $cats = Category::all();
-        $item = [];
-        foreach($cats as $cat){
-            if(isset($cat->parent_id)){
-                $item[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
-                $item[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
-            }else{
-                $item[$cat->id]['NAME'] = $cat->title;
-                $item[$cat->id]['ID'] = $cat->id;
-                $item[$cat->id]['CLASS'] = $cat->class;
-            }
-        }
-        $menu = ['MENU'=>$item];
-        return view('category.create')->with('menu', $menu);
+        return view('category.create')->with('menu', ['MENU' => $this->menu()]);
     }
 
     /**
@@ -89,14 +87,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
+        // $user = Auth::user();
         $task = $request->all();
-        Category::create([
-            'id' => $request['id'],
-            'title'=> $request['title'],
-            'parent_id' => $request['parent_id'],
-            'class' => $request['class'],
-        ]);
+        Category::create($task);
         return redirect('settings');
     }
 
@@ -108,21 +101,6 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $cats = Category::all();
-        $item = [];
-        foreach($cats as $cat){
-            if($id == $cat->id)
-                $current = $cat->title;
-            if(isset($cat->parent_id)){
-                $item[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
-                $item[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
-            }else{
-                $item[$cat->id]['NAME'] = $cat->title;
-                $item[$cat->id]['ID'] = $cat->id;
-                $item[$cat->id]['CLASS'] = $cat->class;
-            }
-        }
-
         $elements = Items::where('CATEGORY_ID', $id)->orderBy('ID', 'desc')->get();
         $element_list = [];
         foreach($elements as $element){
@@ -136,13 +114,12 @@ class CategoryController extends Controller
                 $element_list[$element->ID]['COMMENTS'] = $element->COMMENTS;
             }
         }
-        $menu = array(
-            "MENU" => $item,
+
+        return view('items.index')->with('menu', [
+            "MENU" => $this->menu(),
             "LINK_ID" => $id,
-            "CURRENT" =>$current,
             "ELEMENTS" => $element_list
-        );
-        return view('items.index')->with('menu', $menu);
+        ]);
     }
 
 
@@ -155,24 +132,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $cats = Category::all();
-        $item = [];
-        foreach($cats as $cat){
-            if(isset($cat->parent_id)){
-                $item[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
-                $item[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
-            }else{
-                $item[$cat->id]['NAME'] = $cat->title;
-                $item[$cat->id]['ID'] = $cat->id;
-                $item[$cat->id]['CLASS'] = $cat->class;
-            }
-        }
-        $edit_item = Category::find($id);
-        $menu = array(
-            "MENU" => $item,
-            "ITEM" => $edit_item
-        );
-        return view('category.edit')->with('menu', $menu);
+        return view('category.edit')->with('menu', [
+            "MENU" => $this->menu(),
+            "ITEM" => Category::find($id)
+        ]);
     }
 
     /**

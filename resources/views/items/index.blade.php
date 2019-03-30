@@ -5,23 +5,23 @@
 <div class="row page-titles">
     <div class="col-md-5 align-self-center">
         <h3 class="text-themecolor">
-            <?foreach($menu['MENU'] as $item):?>
+            @foreach($menu['MENU'] as $item)
 
-                <?if(!empty($item['CHILD'])):?>
+                @if(!empty($item['CHILD']))
 
-                    <?foreach($item['CHILD'] as $child){?>
+                    @foreach($item['CHILD'] as $child)
 
-                        <?if($child['ID'] == $menu['LINK_ID']){?>
+                        @if($child['ID'] == $menu['LINK_ID'])
 
-                            <?=$child['NAME']?>
+                            {{ $child['NAME'] }}
 
-                        <?}?>
+                        @endif
 
-                    <?}?>
+                    @endforeach
 
-                <?endif?>
+                @endif
 
-            <?endforeach?>
+            @endforeach
         </h3>
     </div>
 
@@ -128,7 +128,7 @@
                     <?foreach($menu['ELEMENTS'] as $ele){?>
                         <tr>
                             <td><?=$ele['DATE']?></td>
-                            <td><?=$menu['CURRENT']?></td>
+                            <td><?//=$menu['CURRENT']?></td>
                             <td><?=$ele['PRICE']?></td>
                             <td><?=$ele['COMMENTS']?></td>
                             <td>
