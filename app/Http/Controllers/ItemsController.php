@@ -6,17 +6,11 @@ use App\Category,
 	App\Items,
 	Auth,
 	Illuminate\Http\Request,
-	App\Http\Controllers\Controller,
-	Redirect;
+	Redirect,
+    App\Http\Controllers\Controller;
 
 class ItemsController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
 
     /**
      * Display a listing of the resource.
@@ -28,25 +22,6 @@ class ItemsController extends Controller
         return view('items.index');
     }
 
-    public function menu()
-    {
-        $allCategories = Category::all();
-        $arResult = [];
-        foreach($allCategories as $category){
-            if(isset($category->parent_id)){
-                $arResult[$category->parent_id]['CHILD'][$category->id]['NAME'] = $category->title;
-                $arResult[$category->parent_id]['CHILD'][$category->id]['ID'] = $category->id;
-            }
-            else
-            {
-                $arResult[$category->id]['NAME'] = $category->title;
-                $arResult[$category->id]['ID'] = $category->id;
-                $arResult[$category->id]['CLASS'] = $category->class;
-            }
-        }
-        return $arResult;
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -54,8 +29,7 @@ class ItemsController extends Controller
      */
     public function create()
     {
-        $menu = ['MENU' => $this->menu()];
-        return view('items.create')->with('menu', $menu);
+        return view('items.create')->with('menu', ['MENU' => Category::menu()]);
     }
 
     /**
@@ -71,16 +45,7 @@ class ItemsController extends Controller
         $task = $request->all();
         $task['USER_ID'] = $user->id;
         Items::create($task);
-        /* Items::create([
-            'DATE' => $request['DATE'],
-            'USER_ID'=> $task['USER_ID'],
-            'PRICE' => $request['PRICE'],
-            'CATEGORY_ID' => $request['CATEGORY_ID'],
-            'COMMENTS' => $request['COMMENTS'],
-        ]); */
         return redirect('/category/'.$request['CATEGORY_ID']);
-        // return redirect()->action('CategoryController@show', $params);
-
     }
 
     /**
@@ -103,7 +68,7 @@ class ItemsController extends Controller
     public function edit($id)
     {
         return view('items.edit')->with('menu', [
-            "MENU" => $this->menu(),
+            "MENU" => Category::menu(),
             "ITEM" => Items::find($id)
         ]);
     }

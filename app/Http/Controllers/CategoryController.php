@@ -2,44 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category,
-	App\Items,
-	Redirect,
-	Auth,
-	Illuminate\Http\Request,
-	App\Http\Controllers\Controller;
+use App\Category, App\Items, Redirect, Auth, Illuminate\Http\Request, App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
-	public function main(){
-		return Items::all();
-	}
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    /**
-     * Меню
-     */
-    public function menu()
-    {
-        $allCategories = Category::all();
-        $arResult = [];
-        foreach($allCategories as $category){
-            if(isset($category->parent_id)){
-                $arResult[$category->parent_id]['CHILD'][$category->id]['NAME'] = $category->title;
-                $arResult[$category->parent_id]['CHILD'][$category->id]['ID'] = $category->id;
-            }
-            else
-            {
-                $arResult[$category->id]['NAME'] = $category->title;
-                $arResult[$category->id]['ID'] = $category->id;
-                $arResult[$category->id]['CLASS'] = $category->class;
-            }
-        }
-        return $arResult;
-    }
 
     /**
      * Display a listing of the resource.
@@ -62,7 +28,7 @@ class CategoryController extends Controller
         }
 
         $menu = array(
-            'MENU' => $this->menu(),
+            'MENU' => Category::menu(),
             "ELEMENTS" => $list
         );
 
@@ -76,7 +42,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category.create')->with('menu', ['MENU' => $this->menu()]);
+        return view('category.create')->with('menu', ['MENU' => Category::menu()]);
     }
 
     /**
@@ -102,23 +68,23 @@ class CategoryController extends Controller
     public function show($id)
     {
         $elements = Items::where('CATEGORY_ID', $id)->orderBy('ID', 'desc')->get();
-        $element_list = [];
+        $items = [];
         foreach($elements as $element){
             if($element->CATEGORY_ID == $id && $element->USER_ID == Auth::id()){
-                $element_list[$element->ID]['ID'] = $element->ID;
-                $element_list[$element->ID]['CATEGORY_ID'] = $element->CATEGORY_ID;
-                $element_list[$element->ID]['USER_ID'] = $element->USER_ID;
-                $element_list[$element->ID]['DATE'] = $element->DATE;
-                $element_list[$element->ID]['EXPENSE'] = $element->EXPENSE;
-                $element_list[$element->ID]['PRICE'] = $element->PRICE;
-                $element_list[$element->ID]['COMMENTS'] = $element->COMMENTS;
+                $items[$element->ID]['ID'] = $element->ID;
+                $items[$element->ID]['CATEGORY_ID'] = $element->CATEGORY_ID;
+                $items[$element->ID]['USER_ID'] = $element->USER_ID;
+                $items[$element->ID]['DATE'] = $element->DATE;
+                $items[$element->ID]['EXPENSE'] = $element->EXPENSE;
+                $items[$element->ID]['PRICE'] = $element->PRICE;
+                $items[$element->ID]['COMMENTS'] = $element->COMMENTS;
             }
         }
 
         return view('items.index')->with('menu', [
-            "MENU" => $this->menu(),
+            "MENU" => Category::menu(),
             "LINK_ID" => $id,
-            "ELEMENTS" => $element_list
+            "ELEMENTS" => $items
         ]);
     }
 
@@ -133,7 +99,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         return view('category.edit')->with('menu', [
-            "MENU" => $this->menu(),
+            "MENU" => Category::menu(),
             "ITEM" => Category::find($id)
         ]);
     }

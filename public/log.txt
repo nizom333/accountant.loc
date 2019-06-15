@@ -1,0 +1,67 @@
+Array
+(
+    [Host] => accountant.loc
+    [Connection] => keep-alive
+    [Cache-Control] => max-age=0
+    [Upgrade-Insecure-Requests] => 1
+    [User-Agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36
+    [Accept] => text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3
+    [Accept-Encoding] => gzip, deflate
+    [Accept-Language] => ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,und;q=0.6,la;q=0.5,pt;q=0.4
+)
+
+30.03.2019 23:48:17
+--------------------
+
+
+
+30.03.2019 23:48:17
+--------------------
+
+
+Array
+(
+    [Content-Type] => multipart/form-data; boundary=--------------------------491246939872113157761991
+    [Token] => 1q2w3e4r5t
+    [cache-control] => no-cache
+    [Postman-Token] => 8a9cba90-6bf1-49b2-bd35-394e392d182f
+    [User-Agent] => PostmanRuntime/7.6.1
+    [Accept] => */*
+    [Host] => accountant.loc
+    [accept-encoding] => gzip, deflate
+    [content-length] => 168
+    [Connection] => keep-alive
+)
+
+30.03.2019 23:42:08
+--------------------
+
+
+
+30.03.2019 23:42:08
+--------------------
+
+
+Array
+(
+    [Content-Type] => multipart/form-data; boundary=--------------------------287433798742619544040824
+    [Token] => 1q2w3e4r5t
+    [cache-control] => no-cache
+    [Postman-Token] => 8cbe9519-dc11-4905-8267-463552b1c1b9
+    [User-Agent] => PostmanRuntime/7.6.1
+    [Accept] => */*
+    [Host] => accountant.loc
+    [accept-encoding] => gzip, deflate
+    [content-length] => 168
+    [Connection] => keep-alive
+)
+
+30.03.2019 23:41:43
+--------------------
+
+
+
+30.03.2019 23:41:43
+--------------------
+
+

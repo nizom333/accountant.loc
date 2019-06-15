@@ -21,6 +21,3 @@ Route::get('/', 'CategoryController@index');
 Route::resource('/settings', 'HomeController');
 
 Route::get('test', 'CategoryController@main');
-
-
-Route::get('/islom', 'IslomController@index');

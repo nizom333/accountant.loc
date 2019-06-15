@@ -46,9 +46,6 @@
     </div>
 
 
-
-
-
         <div class="card">
             <div class="card-body bg-inverse" style="background: url(../assets/images/background/user-info.jpg) / cover;">
                 <h4 class="text-white card-title">Последние добавленные</h4>
@@ -78,9 +75,6 @@
                 </div>
             </div>
         </div>
-
-
-
 
 
 </div>

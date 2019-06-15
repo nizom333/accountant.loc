@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Category;
-use App\Items;
+use Illuminate\Http\Request, App\Category, App\Items, App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -25,23 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $cats = Category::all();
-        $items = [];
-        foreach($cats as $cat){
-            if(isset($cat->parent_id)){
-                $items[$cat->parent_id]['CHILD'][$cat->id]['NAME'] = $cat->title;
-                $items[$cat->parent_id]['CHILD'][$cat->id]['ID'] = $cat->id;
-            }else{
-                $items[$cat->id]['NAME'] = $cat->title;
-                $items[$cat->id]['ID'] = $cat->id;
-                $items[$cat->id]['CLASS'] = $cat->class;
-            }
-        }
-        $elements = Items::all();
         $menu = array(
-            'MENU'=>$items,
-            'ELEMENTS'=>$cats,
-            'ITEMS' => $elements
+            'MENU' => Category::menu(),
+            'ELEMENTS' => Category::all(),
+            'ITEMS' => Items::all()
         );
         return view('category.index')->with('menu', $menu);
     }

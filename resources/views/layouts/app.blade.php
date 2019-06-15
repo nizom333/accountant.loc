@@ -3,9 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/assets/images/favicon.png') }}">
     <title>Домашняя бухгалтерия</title>
     <link href="{{ asset('/assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -13,11 +11,9 @@
     <link href="{{ asset('/assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('/assets/css/colors/blue.css') }}" id="theme" rel="stylesheet">
     <link href="{{ asset('/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
@@ -52,18 +48,18 @@
                     </ul>
                     <ul class="navbar-nav my-lg-0">
 						@if (Auth::guest())
-						<li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="{{ route('login') }}">
-								<i class="fa fa-sign-in"></i>
-                                <div class="notify"><span class="heartbit"></span> <span class="point"></span> </div>
-                            </a>
-                        </li>
-						<li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="{{ route('register') }}">
-								<i class="fa fa-sign-out"></i>
-                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
-                            </a>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="{{ route('login') }}">
+                                    <i class="fa fa-sign-in"></i>
+                                    <div class="notify"><span class="heartbit"></span> <span class="point"></span> </div>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="{{ route('register') }}">
+                                    <i class="fa fa-sign-out"></i>
+                                    <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                                </a>
+                            </li>
                         @else
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -98,10 +94,6 @@
                         @endif
 
 
-
-
-
-
                     </ul>
                 </div>
             </nav>
@@ -119,21 +111,21 @@
                                 <span class="hide-menu">Главная</span>
                             </a>
                         </li>
-                        <?foreach($menu['MENU'] as $item){?>
+                        @foreach($menu['MENU'] as $item)
                             <li>
-                                <a style="background:#fff;" class="has-arrow waves-effect waves-dark" href="/category/<?=$item['ID']?>" aria-expanded="false">
-                                    <i class="<?=$item['CLASS']?>"></i>
-                                    <span class="hide-menu"><?=$item['NAME']?></span>
+                                <a style="background:#fff;" class="has-arrow waves-effect waves-dark" href="/category/{{ $item['ID'] }}" aria-expanded="false">
+                                    <i class="{{ $item['CLASS'] }}"></i>
+                                    <span class="hide-menu">{{ $item['NAME'] }}</span>
                                 </a>
-                                <?if(!empty($item['CHILD'])){?>
+                                @if(!empty($item['CHILD']))
                                     <ul aria-expanded="false" class="collapse">
-                                        <?foreach($item['CHILD'] as $child){?>
-                                            <li><a href="/category/<?=$child['ID']?>"><?=$child['NAME']?></a></li>
-                                        <?}?>
+                                        @foreach($item['CHILD'] as $child)
+                                            <li><a href="/category/{{ $child['ID'] }}">{{ $child['NAME'] }}</a></li>
+                                        @endforeach
                                     </ul>
-                                <?}?>
+                                @endif
                             </li>
-                        <?}?>
+                        @endforeach
 					</ul>
 				</nav>
             </div>
@@ -150,6 +142,12 @@
         </div>
 
     </div>
+
+    <script>
+        $(() => {
+
+        });
+    </script>
 
     <script src="{{ asset('/assets/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('/assets/plugins/bootstrap/js/popper.min.js') }}"></script>
